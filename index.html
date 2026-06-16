@@ -445,17 +445,23 @@ Regole:
     console.log('[OI] Testo estratto, lunghezza:', text.length);
     if (!text) throw new Error('Risposta vuota. Riprova tra qualche secondo.');
 
-    // Extract JSON
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      console.error('[OI] JSON non trovato nel testo:', text.substring(0,200));
-      throw new Error('Formato non valido. Riprova.');
+    // Extract JSON — prende tutto dal primo { all'ultimo }
+    const firstBrace = text.indexOf('{');
+    const lastBrace = text.lastIndexOf('}');
+    if (firstBrace === -1 || lastBrace === -1) {
+      console.error('[OI] JSON non trovato. Testo raw:', text.substring(0,300));
+      throw new Error('Formato non valido. Testo raw: ' + text.substring(0,200));
     }
+    const jsonStr = text.substring(firstBrace, lastBrace + 1);
 
     let brief;
-    try { brief = JSON.parse(jsonMatch[0]); console.log('[OI] JSON parsato OK'); }
+    try { 
+      brief = JSON.parse(jsonStr); 
+      console.log('[OI] JSON parsato OK, categorie:', brief.categories?.length); 
+    }
     catch(ex) { 
-      console.error('[OI] Parse error:', ex.message, jsonMatch[0].substring(0,200));
+      console.error('[OI] Parse error:', ex.message);
+      console.error('[OI] JSON tentato:', jsonStr.substring(0,400));
       throw new Error('Errore parsing JSON: ' + ex.message); 
     }
 
