@@ -252,6 +252,299 @@ function generate() {
 
   var today = new Date().toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 
+  var prompt = [
+    'Genera un briefing JSON per Orsini Intelligence. Data: ' + today + '.',
+    'IMPORTANTE: solo JSON valido, niente testo extra, niente caratteri speciali Unicode.',
+    'Usa solo ASCII. Apostrofi diritti. Trattini normali. Max 80 caratteri per stringa.',
+    '',
+    'JSON da generare:',
+    '{',
+    '  "executive_summary": "sommario 80 parole su AI agenti e mercati oggi",',
+    '  "signals": [',
+    '    {"type": "watch", "category": "AI", "title": "titolo", "tldr": "frase"},',
+    '    {"type": "opportunity", "category": "TECH", "title": "titolo", "tldr": "frase"},',
+    '    {"type": "alert", "category": "ECO", "title": "titolo", "tldr": "frase"}',
+    '  ],',
+    '  "markets": [',
+    '    {"name": "BTC", "value": "~107k", "change": "+1.2%", "direction": "up"},',
+    '    {"name": "S&P500", "value": "~5900", "change": "+0.3%", "direction": "up"},',
+    '    {"name": "EUR/USD", "value": "~1.08", "change": "-0.1%", "direction": "down"},',
+    '    {"name": "Gold", "value": "~3300", "change": "+0.5%", "direction": "up"},',
+    '    {"name": "Brent", "value": "~65", "change": "-0.8%", "direction": "down"}',
+    '  ],',
+    '  "categories": [',
+    '    {"id": "ai", "name": "AI & Agenti", "color": "dot-ai", "articles": [',
+    '      {"title": "t", "source": "s", "time": "oggi", "tldr": "t", "detail": "d", "sowhat": "s", "url": null},',
+    '      {"title": "t", "source": "s", "time": "oggi", "tldr": "t", "detail": "d", "sowhat": "s", "url": null}',
+    '    ]},',
+    '    {"id": "tech", "name": "Tech", "color": "dot-tech", "articles": [',
+    '      {"title": "t", "source": "s", "time": "oggi", "tldr": "t", "detail": "d", "sowhat": "s", "url": null}',
+    '    ]},',
+    '    {"id": "eco", "name": "Economia", "color": "dot-eco", "articles": [',
+    '      {"title": "t", "source": "s", "time": "oggi", "tldr": "t", "detail": "d", "sowhat": "s", "url": null}',
+    '    ]},',
+    '    {"id": "geo", "name": "Geopolitica", "color": "dot-geo", "articles": [',
+    '      {"title": "t", "source": "s", "time": "oggi", "tldr": "t", "detail": "d", "sowhat": "s", "url": null}',
+    '    ]}',
+    '  ]',
+    '}',
+    '',
+    'Sostituisci tutti i campi "t","s","d" con contenuti reali brevi in italiano.',
+    'Solo JSON. Niente altro.'
+  ].join('\n');CTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Orsini Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#08090e;--card:#0e1117;--card2:#131720;
+  --border:#1c2130;--border2:#252d3d;
+  --ink:#e8eaf0;--ink2:#8892a4;--ink3:#4a5468;
+  --blue:#4a90d9;--amber:#c9843a;--green:#3a9b5c;--red:#c94a4a;
+}
+html,body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,sans-serif;min-height:100vh}
+
+#setup{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.setup-wrap{max-width:420px;width:100%}
+.setup-eyebrow{font-size:10px;letter-spacing:5px;color:var(--ink3);text-transform:uppercase;margin-bottom:16px}
+.setup-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:800;color:var(--ink);margin-bottom:8px;line-height:1.1}
+.setup-sub{font-size:13px;color:var(--ink2);margin-bottom:32px;line-height:1.6}
+.setup-label{font-size:11px;letter-spacing:1px;color:var(--ink3);text-transform:uppercase;margin-bottom:8px;display:block}
+.setup-input{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.setup-input:focus{border-color:var(--blue)}
+.setup-input::placeholder{color:var(--ink3)}
+.setup-note{font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.5}
+.setup-btn{width:100%;margin-top:24px;background:var(--blue);border:none;border-radius:10px;padding:15px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity .2s}
+.setup-btn:hover{opacity:.85}
+.setup-security{margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:11px;color:var(--ink3);line-height:1.6}
+.setup-security strong{color:var(--ink2)}
+
+#dashboard{display:none;min-height:100vh}
+.header{padding:20px 20px 0}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between}
+.header-eyebrow{font-size:9px;letter-spacing:4px;color:var(--ink3);text-transform:uppercase;margin-bottom:4px}
+.header-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:var(--ink)}
+.header-date{font-size:11px;color:var(--ink3);margin-top:4px}
+.header-btns{display:flex;gap:8px;margin-top:4px}
+.btn-refresh{background:var(--blue);border:none;border-radius:8px;padding:8px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px}
+.btn-refresh:disabled{opacity:.4;cursor:not-allowed}
+.btn-settings{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;color:var(--ink2);font-size:14px;cursor:pointer;background:none;border:1px solid var(--border2)}
+.divider{height:1px;background:var(--border);margin:16px 20px 0}
+.last-update{font-size:10px;color:var(--ink3);padding:6px 0 0;text-align:right}
+
+#loading{display:none;padding:60px 20px;text-align:center}
+.loading-icon{font-size:32px;margin-bottom:16px;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.loading-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.loading-sub{font-size:13px;color:var(--ink2);margin-bottom:20px}
+.loading-steps{display:flex;flex-direction:column;gap:6px}
+.step{font-size:12px;color:var(--ink3);display:flex;align-items:center;gap:8px;justify-content:center}
+.step.active{color:var(--blue)}
+.step.done{color:var(--green)}
+
+#content{padding:0 20px 40px}
+.section-label{font-size:9px;letter-spacing:3px;color:var(--ink3);text-transform:uppercase;padding:20px 0 10px}
+
+.exec-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.exec-text{font-size:14px;color:var(--ink2);line-height:1.7}
+
+.signals-grid{display:flex;flex-direction:column;gap:8px}
+.sig{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;border-left:3px solid transparent}
+.sig.risk{border-left-color:var(--red)}
+.sig.alert{border-left-color:var(--amber)}
+.sig.watch{border-left-color:var(--blue)}
+.sig.opportunity{border-left-color:var(--green)}
+.sig-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.sig-badge{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:3px 7px;border-radius:4px}
+.sig-badge.risk{background:rgba(201,74,74,.15);color:var(--red)}
+.sig-badge.alert{background:rgba(201,132,58,.15);color:var(--amber)}
+.sig-badge.watch{background:rgba(74,144,217,.15);color:var(--blue)}
+.sig-badge.opportunity{background:rgba(58,155,92,.15);color:var(--green)}
+.sig-cat{font-size:10px;color:var(--ink3)}
+.sig-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.sig-tldr{font-size:12px;color:var(--ink2);line-height:1.5}
+
+.market-strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.market-strip::-webkit-scrollbar{display:none}
+.mkt{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;flex-shrink:0;min-width:88px}
+.mkt-name{font-size:9px;letter-spacing:1px;color:var(--ink3);text-transform:uppercase;margin-bottom:3px}
+.mkt-val{font-size:14px;font-weight:700;color:var(--ink)}
+.mkt-chg{font-size:11px;font-weight:500}
+.up{color:var(--green)}.down{color:var(--red)}
+
+.cat-header{display:flex;align-items:center;gap:8px;padding:16px 0 10px}
+.cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cat-name{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink2)}
+.cat-count{font-size:10px;color:var(--ink3);margin-left:auto}
+.news-list{display:flex;flex-direction:column;gap:6px}
+.news{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:border-color .15s}
+.news:hover{border-color:var(--border2)}
+.news.open{border-color:var(--blue)}
+.news-meta{display:flex;gap:6px;margin-bottom:6px;font-size:10px;color:var(--ink3)}
+.news-title{font-size:14px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:5px}
+.news-tldr{font-size:12px;color:var(--ink2);line-height:1.5}
+.news-detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.news.open .news-detail{display:block}
+.news-body{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:10px}
+.news-sowhat{background:var(--card2);border-radius:8px;padding:10px;font-size:12px;color:var(--ink2);line-height:1.5}
+.news-sowhat strong{color:var(--ink);display:block;margin-bottom:3px;font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+.news-link{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:11px;color:var(--blue);text-decoration:none}
+
+.error-card{background:rgba(201,74,74,.08);border:1px solid rgba(201,74,74,.2);border-radius:10px;padding:16px;margin:20px 0}
+.error-title{font-size:13px;font-weight:600;color:var(--red);margin-bottom:6px}
+.error-text{font-size:12px;color:var(--ink2);line-height:1.6}
+.error-text a{color:var(--blue)}
+
+.footer{padding:24px 20px 40px;border-top:1px solid var(--border);margin-top:20px}
+.footer-copy{font-size:10px;color:var(--ink3);line-height:1.6}
+.footer-copy strong{color:var(--ink2)}
+
+.dot-ai{background:#4a90d9}.dot-tech{background:#7a5aad}.dot-eco{background:#c9843a}
+.dot-geo{background:#9b6aad}.dot-pol{background:#c94a4a}.dot-sci{background:#3a9b5c}.dot-other{background:#4a5468}
+
+@media(min-width:600px){
+  .header{padding:28px 32px 0}
+  .divider,.footer{margin-left:0}
+  #content{padding:0 32px 60px}
+}
+</style>
+</head>
+<body>
+
+<div id="setup">
+  <div class="setup-wrap">
+    <div class="setup-eyebrow">Personal Intelligence</div>
+    <div class="setup-title">Orsini<br>Intelligence</div>
+    <div class="setup-sub">Dashboard di notizie AI-powered. Inserisci la tua Anthropic API key per iniziare.</div>
+    <label class="setup-label">Anthropic API Key</label>
+    <input class="setup-input" id="apiInput" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+    <div class="setup-note">Salvata solo nel browser (localStorage). Non viene mai inviata ad altri server.</div>
+    <button class="setup-btn" id="setupBtn">Avvia Dashboard →</button>
+    <div class="setup-security">
+      <strong>🔒 Sicurezza</strong><br>
+      La API key non lascia mai il tuo dispositivo. Costo stimato: ~$0.01 per briefing.
+    </div>
+  </div>
+</div>
+
+<div id="dashboard">
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-eyebrow">Personal Intelligence</div>
+        <div class="header-title">Orsini Intelligence</div>
+        <div class="header-date" id="hDate"></div>
+      </div>
+      <div class="header-btns">
+        <button class="btn-refresh" id="btnRefresh">⟳ Aggiorna</button>
+        <button class="btn-settings" id="btnSettings">⚙</button>
+      </div>
+    </div>
+    <div class="last-update" id="lastUpdate"></div>
+  </div>
+  <div class="divider"></div>
+  <div id="loading">
+    <div class="loading-icon">◈</div>
+    <div class="loading-title">Generazione briefing in corso…</div>
+    <div class="loading-sub">Claude sta elaborando le notizie di oggi</div>
+    <div class="loading-steps">
+      <div class="step" id="s1">⬡ Analisi AI e agenti</div>
+      <div class="step" id="s2">⬡ Mercati e tech</div>
+      <div class="step" id="s3">⬡ Geopolitica e macro</div>
+      <div class="step" id="s4">⬡ Sintesi executive</div>
+    </div>
+  </div>
+  <div id="content"></div>
+  <div class="footer">
+    <div class="footer-copy">
+      &copy; <span id="fYear"></span> <strong>Enrico Orsini</strong>. Tutti i diritti riservati.<br>
+      Orsini Intelligence e' una pubblicazione personale. Formato editoriale, struttura segnali e contenuti originali sono proprieta' intellettuale esclusiva di Enrico Orsini.<br><br>
+      <em>Contenuti generati con assistenza AI (Anthropic Claude). Non costituiscono consulenza finanziaria o legale.</em>
+    </div>
+  </div>
+</div>
+
+<script>
+var SKEY = 'oi_key';
+var CKEY = 'oi_cache';
+var DKEY = 'oi_date';
+
+function init() {
+  document.getElementById('fYear').textContent = new Date().getFullYear();
+  var d = new Date();
+  document.getElementById('hDate').textContent = d.toLocaleDateString('it-IT', {weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  document.getElementById('setupBtn').addEventListener('click', saveKey);
+  document.getElementById('apiInput').addEventListener('keydown', function(e){ if(e.key==='Enter') saveKey(); });
+  document.getElementById('btnRefresh').addEventListener('click', generate);
+  document.getElementById('btnSettings').addEventListener('click', function(){
+    if(confirm('Cambia API key?')){ localStorage.removeItem(SKEY); location.reload(); }
+  });
+
+  var key = localStorage.getItem(SKEY);
+  if (key) {
+    showDash();
+    var today = new Date().toDateString();
+    if (localStorage.getItem(DKEY) === today) {
+      var cached = localStorage.getItem(CKEY);
+      if (cached) { try { render(JSON.parse(cached)); setUpdate(); return; } catch(e){} }
+    }
+    generate();
+  }
+}
+
+function saveKey() {
+  var key = document.getElementById('apiInput').value.trim();
+  if (!key || key.length < 20) { alert('Inserisci una API key valida'); return; }
+  localStorage.setItem(SKEY, key);
+  showDash();
+  generate();
+}
+
+function showDash() {
+  document.getElementById('setup').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+}
+
+function setUpdate() {
+  var now = new Date();
+  document.getElementById('lastUpdate').textContent = 'Aggiornato alle ' + now.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
+}
+
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toggleNews(id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.toggle('open');
+}
+
+function generate() {
+  var key = localStorage.getItem(SKEY);
+  if (!key) return;
+
+  var btn = document.getElementById('btnRefresh');
+  btn.disabled = true;
+  btn.textContent = '… Caricamento';
+  document.getElementById('content').innerHTML = '';
+  document.getElementById('loading').style.display = 'block';
+
+  var steps = ['s1','s2','s3','s4'];
+  var si = 0;
+  var stepTimer = setInterval(function(){
+    if (si > 0 && si <= steps.length) document.getElementById(steps[si-1]).className = 'step done';
+    if (si < steps.length) { document.getElementById(steps[si]).className = 'step active'; si++; }
+  }, 3000);
+
+  var today = new Date().toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
   var prompt = 'Sei il redattore di Orsini Intelligence. Data: ' + today + '.\n\n' +
     'Genera un briefing mattutino executive su: AI e agenti (Claude Code, Anthropic, OpenAI, LLM), Tech, Economia e mercati (BTC, S&P500, EURUSD, Gold, Brent), Geopolitica, Scienza.\n\n' +
     'REGOLE CRITICHE:\n' +
@@ -296,8 +589,8 @@ function generate() {
       'anthropic-dangerous-direct-browser-access': 'true'
     },
     body: JSON.stringify({
-      model: 'claude-opus-4-8',
-      max_tokens: 3000,
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 2000,
       stream: false,
       messages: [{role: 'user', content: prompt}]
     })
