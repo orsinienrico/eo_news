@@ -3,36 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
 <title>Orsini Intelligence</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#08090e;
-  --card:#0e1117;
-  --card2:#131720;
-  --border:#1c2130;
-  --border2:#252d3d;
-  --ink:#e8eaf0;
-  --ink2:#8892a4;
-  --ink3:#4a5468;
-  --blue:#4a90d9;
-  --amber:#c9843a;
-  --green:#3a9b5c;
-  --red:#c94a4a;
-  --purple:#7a5aad;
-  --teal:#3a8a9b;
-  --accent:#4a90d9;
+  --bg:#08090e;--card:#0e1117;--card2:#131720;
+  --border:#1c2130;--border2:#252d3d;
+  --ink:#e8eaf0;--ink2:#8892a4;--ink3:#4a5468;
+  --blue:#4a90d9;--amber:#c9843a;--green:#3a9b5c;--red:#c94a4a;
 }
 html,body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,sans-serif;min-height:100vh}
 
-/* ── SETUP ── */
 #setup{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
 .setup-wrap{max-width:420px;width:100%}
-.setup-logo{font-size:10px;letter-spacing:5px;color:var(--ink3);text-transform:uppercase;margin-bottom:16px}
-.setup-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--ink);margin-bottom:8px;line-height:1.1}
+.setup-eyebrow{font-size:10px;letter-spacing:5px;color:var(--ink3);text-transform:uppercase;margin-bottom:16px}
+.setup-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:800;color:var(--ink);margin-bottom:8px;line-height:1.1}
 .setup-sub{font-size:13px;color:var(--ink2);margin-bottom:32px;line-height:1.6}
 .setup-label{font-size:11px;letter-spacing:1px;color:var(--ink3);text-transform:uppercase;margin-bottom:8px;display:block}
 .setup-input{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
@@ -41,560 +28,393 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-syste
 .setup-note{font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.5}
 .setup-btn{width:100%;margin-top:24px;background:var(--blue);border:none;border-radius:10px;padding:15px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity .2s}
 .setup-btn:hover{opacity:.85}
-.setup-btn:disabled{opacity:.4;cursor:not-allowed}
 .setup-security{margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:11px;color:var(--ink3);line-height:1.6}
 .setup-security strong{color:var(--ink2)}
 
-/* ── MAIN DASHBOARD ── */
 #dashboard{display:none;min-height:100vh}
-
-/* HEADER */
-.header{padding:20px 20px 0;position:relative}
-.header-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
-.header-eyebrow{font-size:9px;letter-spacing:4px;color:var(--ink3);text-transform:uppercase}
-.header-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:var(--ink);line-height:1}
+.header{padding:20px 20px 0}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between}
+.header-eyebrow{font-size:9px;letter-spacing:4px;color:var(--ink3);text-transform:uppercase;margin-bottom:4px}
+.header-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:var(--ink)}
 .header-date{font-size:11px;color:var(--ink3);margin-top:4px}
-.header-actions{display:flex;gap:8px;align-items:center;margin-top:4px}
-.btn-refresh{background:var(--blue);border:none;border-radius:8px;padding:8px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .2s;display:flex;align-items:center;gap:6px}
-.btn-refresh:hover{opacity:.85}
+.header-btns{display:flex;gap:8px;margin-top:4px}
+.btn-refresh{background:var(--blue);border:none;border-radius:8px;padding:8px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px}
 .btn-refresh:disabled{opacity:.4;cursor:not-allowed}
-.btn-settings{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;color:var(--ink2);font-size:14px;cursor:pointer;transition:opacity .2s}
-.btn-settings:hover{opacity:.7}
+.btn-settings{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;color:var(--ink2);font-size:14px;cursor:pointer;background:none;border:1px solid var(--border2)}
 .divider{height:1px;background:var(--border);margin:16px 20px 0}
+.last-update{font-size:10px;color:var(--ink3);padding:6px 0 0;text-align:right}
 
-/* LOADING */
 #loading{display:none;padding:60px 20px;text-align:center}
 .loading-icon{font-size:32px;margin-bottom:16px;animation:pulse 1.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
 .loading-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px}
-.loading-sub{font-size:13px;color:var(--ink2)}
-.loading-steps{margin-top:20px;display:flex;flex-direction:column;gap:6px}
-.loading-step{font-size:12px;color:var(--ink3);display:flex;align-items:center;gap:8px;justify-content:center}
-.loading-step.active{color:var(--blue)}
-.loading-step.done{color:var(--green)}
+.loading-sub{font-size:13px;color:var(--ink2);margin-bottom:20px}
+.loading-steps{display:flex;flex-direction:column;gap:6px}
+.step{font-size:12px;color:var(--ink3);display:flex;align-items:center;gap:8px;justify-content:center}
+.step.active{color:var(--blue)}
+.step.done{color:var(--green)}
 
-/* CONTENT AREA */
 #content{padding:0 20px 40px}
-
-/* EXECUTIVE SUMMARY */
 .section-label{font-size:9px;letter-spacing:3px;color:var(--ink3);text-transform:uppercase;padding:20px 0 10px}
+
 .exec-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
 .exec-text{font-size:14px;color:var(--ink2);line-height:1.7}
-.exec-text p{margin-bottom:10px}
-.exec-text p:last-child{margin-bottom:0}
 
-/* SIGNALS */
 .signals-grid{display:flex;flex-direction:column;gap:8px}
-.signal-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;border-left:3px solid transparent}
-.signal-card.risk{border-left-color:var(--red)}
-.signal-card.alert{border-left-color:var(--amber)}
-.signal-card.watch{border-left-color:var(--blue)}
-.signal-card.opportunity{border-left-color:var(--green)}
-.signal-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.signal-badge{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:3px 7px;border-radius:4px}
-.signal-badge.risk{background:rgba(201,74,74,.15);color:var(--red)}
-.signal-badge.alert{background:rgba(201,132,58,.15);color:var(--amber)}
-.signal-badge.watch{background:rgba(74,144,217,.15);color:var(--blue)}
-.signal-badge.opportunity{background:rgba(58,155,92,.15);color:var(--green)}
-.signal-cat{font-size:10px;color:var(--ink3)}
-.signal-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.3}
-.signal-tldr{font-size:12px;color:var(--ink2);line-height:1.5}
+.sig{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;border-left:3px solid transparent}
+.sig.risk{border-left-color:var(--red)}
+.sig.alert{border-left-color:var(--amber)}
+.sig.watch{border-left-color:var(--blue)}
+.sig.opportunity{border-left-color:var(--green)}
+.sig-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.sig-badge{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:3px 7px;border-radius:4px}
+.sig-badge.risk{background:rgba(201,74,74,.15);color:var(--red)}
+.sig-badge.alert{background:rgba(201,132,58,.15);color:var(--amber)}
+.sig-badge.watch{background:rgba(74,144,217,.15);color:var(--blue)}
+.sig-badge.opportunity{background:rgba(58,155,92,.15);color:var(--green)}
+.sig-cat{font-size:10px;color:var(--ink3)}
+.sig-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.sig-tldr{font-size:12px;color:var(--ink2);line-height:1.5}
 
-/* NEWS CATEGORIES */
-.cat-section{margin-bottom:4px}
+.market-strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.market-strip::-webkit-scrollbar{display:none}
+.mkt{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;flex-shrink:0;min-width:88px}
+.mkt-name{font-size:9px;letter-spacing:1px;color:var(--ink3);text-transform:uppercase;margin-bottom:3px}
+.mkt-val{font-size:14px;font-weight:700;color:var(--ink)}
+.mkt-chg{font-size:11px;font-weight:500}
+.up{color:var(--green)}.down{color:var(--red)}
+
 .cat-header{display:flex;align-items:center;gap:8px;padding:16px 0 10px}
 .cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .cat-name{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink2)}
 .cat-count{font-size:10px;color:var(--ink3);margin-left:auto}
 .news-list{display:flex;flex-direction:column;gap:6px}
-.news-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:border-color .15s}
-.news-card:hover{border-color:var(--border2)}
-.news-card.open{border-color:var(--blue)}
-.news-meta{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.news-source{font-size:10px;color:var(--ink3);font-weight:500}
-.news-time{font-size:10px;color:var(--ink3)}
-.news-title{font-size:14px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:6px}
+.news{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:border-color .15s}
+.news:hover{border-color:var(--border2)}
+.news.open{border-color:var(--blue)}
+.news-meta{display:flex;gap:6px;margin-bottom:6px;font-size:10px;color:var(--ink3)}
+.news-title{font-size:14px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:5px}
 .news-tldr{font-size:12px;color:var(--ink2);line-height:1.5}
 .news-detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
-.news-card.open .news-detail{display:block}
-.news-detail-text{font-size:13px;color:var(--ink2);line-height:1.6}
-.news-sowhat{margin-top:10px;background:var(--card2);border-radius:8px;padding:10px;font-size:12px;color:var(--ink2);line-height:1.5}
-.news-sowhat strong{color:var(--ink);display:block;margin-bottom:3px;font-size:11px;letter-spacing:.5px;text-transform:uppercase}
-.news-link{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:11px;color:var(--blue);text-decoration:none}
-.news-link:hover{opacity:.7}
+.news.open .news-detail{display:block}
+.news-body{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:10px}
+.news-sowhat{background:var(--card2);border-radius:8px;padding:10px;font-size:12px;color:var(--ink2);line-height:1.5}
+.news-sowhat strong{color:var(--ink);display:block;margin-bottom:3px;font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+.news-link{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:11px;color:var(--blue);text-decoration:none}
 
-/* MARKET STRIP */
-.market-strip{display:flex;gap:8px;overflow-x:auto;padding:0 0 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.market-strip::-webkit-scrollbar{display:none}
-.market-pill{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;flex-shrink:0;min-width:90px}
-.market-name{font-size:9px;letter-spacing:1px;color:var(--ink3);text-transform:uppercase;margin-bottom:3px}
-.market-val{font-size:14px;font-weight:700;color:var(--ink)}
-.market-chg{font-size:11px;font-weight:500}
-.market-chg.up{color:var(--green)}
-.market-chg.down{color:var(--red)}
+.error-card{background:rgba(201,74,74,.08);border:1px solid rgba(201,74,74,.2);border-radius:10px;padding:16px;margin:20px 0}
+.error-title{font-size:13px;font-weight:600;color:var(--red);margin-bottom:6px}
+.error-text{font-size:12px;color:var(--ink2);line-height:1.6}
+.error-text a{color:var(--blue)}
 
-/* FOOTER */
 .footer{padding:24px 20px 40px;border-top:1px solid var(--border);margin-top:20px}
 .footer-copy{font-size:10px;color:var(--ink3);line-height:1.6}
 .footer-copy strong{color:var(--ink2)}
 
-/* ERROR */
-.error-card{background:rgba(201,74,74,.08);border:1px solid rgba(201,74,74,.2);border-radius:10px;padding:16px;margin:20px 0}
-.error-title{font-size:13px;font-weight:600;color:var(--red);margin-bottom:4px}
-.error-text{font-size:12px;color:var(--ink2);line-height:1.5}
-
-/* LAST UPDATE */
-.last-update{font-size:10px;color:var(--ink3);text-align:right;padding:8px 0 0}
-
-/* CATEGORY COLORS */
-.dot-ai{background:#4a90d9}
-.dot-tech{background:#7a5aad}
-.dot-eco{background:#c9843a}
-.dot-geo{background:#af52de;background:#7a5aad}
-.dot-geo{background:#9b6aad}
-.dot-pol{background:#c94a4a}
-.dot-sci{background:#3a9b5c}
-.dot-other{background:#4a5468}
+.dot-ai{background:#4a90d9}.dot-tech{background:#7a5aad}.dot-eco{background:#c9843a}
+.dot-geo{background:#9b6aad}.dot-pol{background:#c94a4a}.dot-sci{background:#3a9b5c}.dot-other{background:#4a5468}
 
 @media(min-width:600px){
   .header{padding:28px 32px 0}
-  .divider{margin:20px 32px 0}
+  .divider,.footer{margin-left:0}
   #content{padding:0 32px 60px}
-  .setup-wrap{max-width:460px}
 }
 </style>
 </head>
 <body>
 
-<!-- SETUP SCREEN -->
 <div id="setup">
   <div class="setup-wrap">
-    <div class="setup-logo">Personal Intelligence</div>
+    <div class="setup-eyebrow">Personal Intelligence</div>
     <div class="setup-title">Orsini<br>Intelligence</div>
-    <div class="setup-sub">Dashboard di notizie AI-powered con aggiornamento live ogni mattina. Inserisci la tua Anthropic API key per iniziare.</div>
+    <div class="setup-sub">Dashboard di notizie AI-powered. Inserisci la tua Anthropic API key per iniziare.</div>
     <label class="setup-label">Anthropic API Key</label>
-    <input class="setup-input" id="apiKeyInput" type="password" placeholder="sk-ant-..." autocomplete="off" autocorrect="off" spellcheck="false">
-    <div class="setup-note">La key è salvata solo nel tuo browser (localStorage). Non viene mai inviata ad altri server.</div>
-    <button class="setup-btn" id="setupBtn" onclick="saveKey()">Avvia Dashboard →</button>
+    <input class="setup-input" id="apiInput" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+    <div class="setup-note">Salvata solo nel browser (localStorage). Non viene mai inviata ad altri server.</div>
+    <button class="setup-btn" id="setupBtn">Avvia Dashboard →</button>
     <div class="setup-security">
       <strong>🔒 Sicurezza</strong><br>
-      La API key non lascia mai il tuo dispositivo. Viene usata direttamente dal browser per chiamare l'API Anthropic con web search attiva. Costo stimato: ~$0.01 per briefing giornaliero.
+      La API key non lascia mai il tuo dispositivo. Costo stimato: ~$0.01 per briefing.
     </div>
   </div>
 </div>
 
-<!-- MAIN DASHBOARD -->
 <div id="dashboard">
   <div class="header">
     <div class="header-top">
       <div>
         <div class="header-eyebrow">Personal Intelligence</div>
         <div class="header-title">Orsini Intelligence</div>
-        <div class="header-date" id="headerDate"></div>
+        <div class="header-date" id="hDate"></div>
       </div>
-      <div class="header-actions">
-        <button class="btn-refresh" id="refreshBtn" onclick="generateBrief()">
-          <span id="refreshIcon">⟳</span> Aggiorna
-        </button>
-        <button class="btn-settings" onclick="resetKey()" title="Cambia API key">⚙</button>
+      <div class="header-btns">
+        <button class="btn-refresh" id="btnRefresh">⟳ Aggiorna</button>
+        <button class="btn-settings" id="btnSettings">⚙</button>
       </div>
     </div>
     <div class="last-update" id="lastUpdate"></div>
   </div>
   <div class="divider"></div>
-
   <div id="loading">
     <div class="loading-icon">◈</div>
     <div class="loading-title">Generazione briefing in corso…</div>
-    <div class="loading-sub">Claude sta cercando le notizie di oggi</div>
+    <div class="loading-sub">Claude sta elaborando le notizie di oggi</div>
     <div class="loading-steps">
-      <div class="loading-step" id="step1">⬡ Ricerca notizie AI e agenti</div>
-      <div class="loading-step" id="step2">⬡ Analisi mercati e tech</div>
-      <div class="loading-step" id="step3">⬡ Geopolitica e macro</div>
-      <div class="loading-step" id="step4">⬡ Sintesi executive</div>
+      <div class="step" id="s1">⬡ Analisi AI e agenti</div>
+      <div class="step" id="s2">⬡ Mercati e tech</div>
+      <div class="step" id="s3">⬡ Geopolitica e macro</div>
+      <div class="step" id="s4">⬡ Sintesi executive</div>
     </div>
   </div>
-
   <div id="content"></div>
-
   <div class="footer">
     <div class="footer-copy">
-      © <span id="footerYear"></span> <strong>Enrico Orsini</strong>. Tutti i diritti riservati.<br>
-      Orsini Intelligence è una pubblicazione personale. Il formato editoriale, la struttura dei segnali e i contenuti originali sono proprietà intellettuale esclusiva di Enrico Orsini.<br><br>
-      <em>Contenuti generati con assistenza AI (Anthropic Claude + web search). Non costituiscono consulenza finanziaria o legale.</em>
+      &copy; <span id="fYear"></span> <strong>Enrico Orsini</strong>. Tutti i diritti riservati.<br>
+      Orsini Intelligence e' una pubblicazione personale. Formato editoriale, struttura segnali e contenuti originali sono proprieta' intellettuale esclusiva di Enrico Orsini.<br><br>
+      <em>Contenuti generati con assistenza AI (Anthropic Claude). Non costituiscono consulenza finanziaria o legale.</em>
     </div>
   </div>
 </div>
 
 <script>
-const STORAGE_KEY = 'oi_api_key';
-const BRIEF_CACHE_KEY = 'oi_last_brief';
-const BRIEF_DATE_KEY = 'oi_brief_date';
+var SKEY = 'oi_key';
+var CKEY = 'oi_cache';
+var DKEY = 'oi_date';
 
 function init() {
-  document.getElementById('footerYear').textContent = new Date().getFullYear();
-  updateHeaderDate();
+  document.getElementById('fYear').textContent = new Date().getFullYear();
+  var d = new Date();
+  document.getElementById('hDate').textContent = d.toLocaleDateString('it-IT', {weekday:'long',day:'numeric',month:'long',year:'numeric'});
 
-  const key = localStorage.getItem(STORAGE_KEY);
+  document.getElementById('setupBtn').addEventListener('click', saveKey);
+  document.getElementById('apiInput').addEventListener('keydown', function(e){ if(e.key==='Enter') saveKey(); });
+  document.getElementById('btnRefresh').addEventListener('click', generate);
+  document.getElementById('btnSettings').addEventListener('click', function(){
+    if(confirm('Cambia API key?')){ localStorage.removeItem(SKEY); location.reload(); }
+  });
+
+  var key = localStorage.getItem(SKEY);
   if (key) {
-    showDashboard();
-    // Load cached brief if same day
-    const cachedDate = localStorage.getItem(BRIEF_DATE_KEY);
-    const today = new Date().toDateString();
-    if (cachedDate === today) {
-      const cached = localStorage.getItem(BRIEF_CACHE_KEY);
-      if (cached) {
-        try {
-          renderBrief(JSON.parse(cached));
-          document.getElementById('lastUpdate').textContent = 'Aggiornato oggi · ' + new Date().toLocaleTimeString('it-IT', {hour:'2-digit',minute:'2-digit'});
-          return;
-        } catch(e) {}
-      }
+    showDash();
+    var today = new Date().toDateString();
+    if (localStorage.getItem(DKEY) === today) {
+      var cached = localStorage.getItem(CKEY);
+      if (cached) { try { render(JSON.parse(cached)); setUpdate(); return; } catch(e){} }
     }
-    generateBrief();
+    generate();
   }
-}
-
-function updateHeaderDate() {
-  const now = new Date();
-  const opts = {weekday:'long', day:'numeric', month:'long', year:'numeric'};
-  document.getElementById('headerDate').textContent = now.toLocaleDateString('it-IT', opts);
 }
 
 function saveKey() {
-  const key = document.getElementById('apiKeyInput').value.trim();
-  if (!key.startsWith('sk-ant-')) {
-    alert('API key non valida. Deve iniziare con sk-ant-');
-    return;
-  }
-  localStorage.setItem(STORAGE_KEY, key);
-  showDashboard();
-  generateBrief();
+  var key = document.getElementById('apiInput').value.trim();
+  if (!key || key.length < 20) { alert('Inserisci una API key valida'); return; }
+  localStorage.setItem(SKEY, key);
+  showDash();
+  generate();
 }
 
-function showDashboard() {
+function showDash() {
   document.getElementById('setup').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
 }
 
-function resetKey() {
-  if (confirm('Vuoi cambiare API key?')) {
-    localStorage.removeItem(STORAGE_KEY);
-    location.reload();
-  }
+function setUpdate() {
+  var now = new Date();
+  document.getElementById('lastUpdate').textContent = 'Aggiornato alle ' + now.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
 }
 
-async function generateBrief() {
-  const key = localStorage.getItem(STORAGE_KEY);
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toggleNews(id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.toggle('open');
+}
+
+function generate() {
+  var key = localStorage.getItem(SKEY);
   if (!key) return;
 
-  const refreshBtn = document.getElementById('refreshBtn');
-  const refreshIcon = document.getElementById('refreshIcon');
-  refreshBtn.disabled = true;
-  refreshIcon.textContent = '…';
-
+  var btn = document.getElementById('btnRefresh');
+  btn.disabled = true;
+  btn.textContent = '… Caricamento';
   document.getElementById('content').innerHTML = '';
   document.getElementById('loading').style.display = 'block';
 
-  // Animate steps
-  const steps = ['step1','step2','step3','step4'];
-  let stepIdx = 0;
-  const stepInterval = setInterval(() => {
-    if (stepIdx > 0) document.getElementById(steps[stepIdx-1]).className = 'loading-step done';
-    if (stepIdx < steps.length) {
-      document.getElementById(steps[stepIdx]).className = 'loading-step active';
-      stepIdx++;
+  var steps = ['s1','s2','s3','s4'];
+  var si = 0;
+  var stepTimer = setInterval(function(){
+    if (si > 0 && si <= steps.length) document.getElementById(steps[si-1]).className = 'step done';
+    if (si < steps.length) { document.getElementById(steps[si]).className = 'step active'; si++; }
+  }, 3000);
+
+  var today = new Date().toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  var prompt = 'Sei il redattore di Orsini Intelligence. Data: ' + today + '.\n\n' +
+    'Genera un briefing mattutino executive su: AI e agenti (Claude Code, Anthropic, OpenAI, LLM), Tech, Economia e mercati (BTC, S&P500, EURUSD, Gold, Brent), Geopolitica, Scienza.\n\n' +
+    'REGOLE CRITICHE:\n' +
+    '- Rispondi SOLO con JSON valido. Zero testo fuori dal JSON.\n' +
+    '- USA SOLO caratteri JSON-safe. Niente apostrofi curly, virgolette curly, em-dash, ellissi Unicode.\n' +
+    '- Usa apostrofo dritto (\') e trattino normale (-).\n' +
+    '- Stringhe corte: max 150 caratteri per campo.\n\n' +
+    'Struttura JSON:\n' +
+    '{\n' +
+    '  "generated_at": "HH:MM",\n' +
+    '  "executive_summary": "Sommario 100 parole sui temi principali del giorno",\n' +
+    '  "signals": [\n' +
+    '    {"type": "risk|alert|watch|opportunity", "category": "AI|TECH|ECO|GEO|SCI", "title": "Titolo breve", "tldr": "Una frase"}\n' +
+    '  ],\n' +
+    '  "markets": [\n' +
+    '    {"name": "BTC", "value": "valore", "change": "+X.X%", "direction": "up|down"}\n' +
+    '  ],\n' +
+    '  "categories": [\n' +
+    '    {\n' +
+    '      "id": "ai", "name": "AI & Agenti", "color": "dot-ai",\n' +
+    '      "articles": [\n' +
+    '        {"title": "Titolo", "source": "Fonte", "time": "oggi", "tldr": "Frase breve", "detail": "60 parole di dettaglio", "sowhat": "Implicazione per CTO", "url": null}\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {"id": "tech", "name": "Tech & Software", "color": "dot-tech", "articles": []},\n' +
+    '    {"id": "eco", "name": "Economia & Mercati", "color": "dot-eco", "articles": []},\n' +
+    '    {"id": "geo", "name": "Geopolitica & Policy", "color": "dot-geo", "articles": []},\n' +
+    '    {"id": "sci", "name": "Scienza & Innovazione", "color": "dot-sci", "articles": []}\n' +
+    '  ]\n' +
+    '}';
+
+  var controller = new AbortController();
+  var timeout = setTimeout(function(){ controller.abort(); }, 120000);
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    signal: controller.signal,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-opus-4-8',
+      max_tokens: 3000,
+      stream: false,
+      messages: [{role: 'user', content: prompt}]
+    })
+  })
+  .then(function(res) {
+    clearTimeout(timeout);
+    clearInterval(stepTimer);
+    steps.forEach(function(s){ document.getElementById(s).className = 'step done'; });
+    console.log('[OI] Status:', res.status);
+    if (!res.ok) {
+      return res.json().then(function(e){ throw new Error('API ' + res.status + ': ' + (e.error && e.error.message ? e.error.message : res.status)); });
     }
-  }, 2500);
-
-  const today = new Date().toLocaleDateString('it-IT', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
-
-  const prompt = `Sei il redattore di "Orsini Intelligence". Data: ${today}.
-
-Genera un briefing JSON. USA SOLO caratteri ASCII-safe nelle stringhe: niente apostrofi curly (' '), virgolette curly (" "), em-dash (—), o altri caratteri Unicode speciali. Usa apostrofo dritto (') e trattino normale (-).
-
-Rispondi SOLO con JSON valido, compatto, senza testo fuori dal JSON.
-
-Struttura ESATTA:`
-
-{
-  "generated_at": "ora attuale HH:MM",
-  "executive_summary": "Paragrafo di 150-200 parole che sintetizza i 3-5 sviluppi più importanti della giornata con implicazioni per chi opera nel settore AI/tech. Tono executive, diretto, senza fronzoli.",
-  "signals": [
-    {
-      "type": "risk|alert|watch|opportunity",
-      "category": "AI|TECH|ECO|GEO|SCI",
-      "title": "Titolo segnale breve",
-      "tldr": "Una frase di 15-20 parole che cattura l'essenza"
+    return res.json();
+  })
+  .then(function(data) {
+    console.log('[OI] Blocks:', data.content && data.content.map(function(b){return b.type;}));
+    var text = '';
+    if (data.content) {
+      data.content.forEach(function(b){ if (b.type === 'text') text += b.text; });
     }
-  ],
-  "markets": [
-    {"name": "BTC", "value": "valore stimato", "change": "+X.X%", "direction": "up|down"},
-    {"name": "S&P 500", "value": "valore", "change": "+X.X%", "direction": "up|down"},
-    {"name": "EUR/USD", "value": "valore", "change": "+X.X%", "direction": "up|down"},
-    {"name": "Gold", "value": "valore", "change": "+X.X%", "direction": "up|down"},
-    {"name": "Brent", "value": "valore", "change": "+X.X%", "direction": "up|down"}
-  ],
-  "categories": [
-    {
-      "id": "ai",
-      "name": "AI & Agenti",
-      "color": "dot-ai",
-      "articles": [
-        {
-          "title": "Titolo articolo",
-          "source": "Nome fonte",
-          "time": "X ore fa",
-          "tldr": "Frase di sintesi 15-20 parole",
-          "detail": "Paragrafo di 60-80 parole con contesto completo",
-          "sowhat": "Implicazione pratica per un engineering leader/CTO: cosa cambia, cosa fare",
-          "url": "URL reale se disponibile, altrimenti null"
-        }
-      ]
-    },
-    {
-      "id": "tech",
-      "name": "Tech & Software",
-      "color": "dot-tech",
-      "articles": []
-    },
-    {
-      "id": "eco",
-      "name": "Economia & Mercati",
-      "color": "dot-eco",
-      "articles": []
-    },
-    {
-      "id": "geo",
-      "name": "Geopolitica & Policy",
-      "color": "dot-geo",
-      "articles": []
-    },
-    {
-      "id": "sci",
-      "name": "Scienza & Innovazione",
-      "color": "dot-sci",
-      "articles": []
-    }
-  ]
-}
+    console.log('[OI] Text length:', text.length);
 
-Regole:
-- Minimo 3 segnali (mix di tipi), massimo 5
-- Ogni categoria deve avere 2-4 articoli con notizie REALI di oggi cercate via web
-- I dati mercati devono essere i più recenti disponibili
-- Solo JSON valido, nessun markdown, nessun testo fuori dal JSON
-- Tutte le notizie devono essere verificate e recenti (ultime 24h)`;
+    var f = text.indexOf('{');
+    var l = text.lastIndexOf('}');
+    if (f === -1 || l === -1) throw new Error('JSON non trovato nella risposta');
+    var raw = text.substring(f, l+1);
 
-  try {
-    // AbortController per timeout 120s
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 120000);
+    // Sanitize unicode chars that break JSON.parse
+    raw = raw
+      .replace(/[\u2018\u2019\u0060\u00b4]/g, "'")
+      .replace(/[\u201c\u201d]/g, '"')
+      .replace(/[\u2013\u2014]/g, '-')
+      .replace(/[\u2026]/g, '...')
+      .replace(/[\u00a0]/g, ' ')
+      .replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g, '');
 
-    console.log('[OI] Avvio fetch API...');
-    let response;
+    var brief;
     try {
-      response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        signal: controller.signal,
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': key,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true'
-        },
-        body: JSON.stringify({
-          model: 'claude-opus-4-8',
-          max_tokens: 4000,
-          stream: false,
-          messages: [{role: 'user', content: prompt}]
-        })
-      });
-    } finally {
-      clearTimeout(timeout);
+      brief = JSON.parse(raw);
+    } catch(e) {
+      console.error('[OI] Parse error:', e.message, raw.substring(0,300));
+      throw new Error('Errore parsing JSON: ' + e.message);
     }
 
-    console.log('[OI] Risposta ricevuta, status:', response.status);
-    clearInterval(stepInterval);
-    steps.forEach(s => document.getElementById(s).className = 'loading-step done');
-
-    if (!response.ok) {
-      let errMsg = `HTTP ${response.status}`;
-      try { const err = await response.json(); errMsg = err.error?.message || errMsg; } catch(ex) {}
-      console.error('[OI] API error:', errMsg);
-      throw new Error(errMsg);
-    }
-
-    console.log('[OI] Parsing risposta...');
-    const data = await response.json();
-    console.log('[OI] Content blocks:', data.content?.length, data.content?.map(b=>b.type));
-
-    // Extract text from response
-    let text = '';
-    for (const block of data.content) {
-      if (block.type === 'text') text += block.text;
-    }
-
-    console.log('[OI] Testo estratto, lunghezza:', text.length);
-    if (!text) throw new Error('Risposta vuota. Riprova tra qualche secondo.');
-
-    // Extract JSON — prende tutto dal primo { all'ultimo }
-    const firstBrace = text.indexOf('{');
-    const lastBrace = text.lastIndexOf('}');
-    if (firstBrace === -1 || lastBrace === -1) {
-      console.error('[OI] JSON non trovato. Testo raw:', text.substring(0,300));
-      throw new Error('Formato non valido. Testo raw: ' + text.substring(0,200));
-    }
-    const jsonStr = text.substring(firstBrace, lastBrace + 1);
-
-    let brief;
-    try { 
-      // Sanitize common problematic chars before parsing
-      const cleanJson = jsonStr
-        .replace(/[‘’]/g, "'")   // curly apostrophes
-        .replace(/[“”]/g, '"')   // curly quotes
-        .replace(/[–—]/g, '-')   // en/em dash
-        .replace(/[…]/g, '...')       // ellipsis
-        .replace(/[ -
--]/g, ''); // control chars
-      brief = JSON.parse(cleanJson); 
-      console.log('[OI] JSON parsato OK, categorie:', brief.categories?.length); 
-    }
-    catch(ex) { 
-      console.error('[OI] Parse error:', ex.message);
-      console.error('[OI] JSON tentato:', jsonStr.substring(0,400));
-      throw new Error('Errore parsing JSON: ' + ex.message); 
-    }
-
-    // Cache
-    localStorage.setItem(BRIEF_CACHE_KEY, JSON.stringify(brief));
-    localStorage.setItem(BRIEF_DATE_KEY, new Date().toDateString());
-
+    localStorage.setItem(CKEY, JSON.stringify(brief));
+    localStorage.setItem(DKEY, new Date().toDateString());
     document.getElementById('loading').style.display = 'none';
-    renderBrief(brief);
-
-    const now = new Date();
-    document.getElementById('lastUpdate').textContent = `Aggiornato oggi alle ${now.toLocaleTimeString('it-IT', {hour:'2-digit',minute:'2-digit'})}`;
-
-  } catch(e) {
-    clearInterval(stepInterval);
+    render(brief);
+    setUpdate();
+  })
+  .catch(function(e) {
+    clearTimeout(timeout);
+    clearInterval(stepTimer);
     document.getElementById('loading').style.display = 'none';
-    const isAbort = e.name === 'AbortError';
-    document.getElementById('content').innerHTML = `
-      <div class="error-card">
-        <div class="error-title">${isAbort ? 'Timeout — riprova' : 'Errore generazione briefing'}</div>
-        <div class="error-text">${isAbort ? 'La richiesta ha impiegato troppo. Premi Aggiorna per riprovare.' : e.message}<br><br>
-        Se il problema persiste: verifica la API key su <a href="https://console.anthropic.com" target="_blank" style="color:var(--blue)">console.anthropic.com</a> e assicurati di avere credito disponibile.</div>
-      </div>`;
-  }
-
-  refreshBtn.disabled = false;
-  refreshIcon.textContent = '⟳';
+    var msg = e.name === 'AbortError' ? 'Timeout (>2 min). Riprova.' : e.message;
+    document.getElementById('content').innerHTML =
+      '<div class="error-card"><div class="error-title">Errore</div><div class="error-text">' + esc(msg) +
+      '<br><br>Verifica la key su <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div></div>';
+  })
+  .finally(function(){
+    btn.disabled = false;
+    btn.textContent = '⟳ Aggiorna';
+  });
 }
 
-function renderBrief(brief) {
-  let html = '';
+function render(brief) {
+  var html = '';
 
-  // MARKET STRIP
+  // Markets
   if (brief.markets && brief.markets.length) {
-    html += `<div class="section-label">Mercati</div>`;
-    html += `<div class="market-strip">`;
-    for (const m of brief.markets) {
-      const dir = m.direction === 'up' ? 'up' : 'down';
-      const arrow = dir === 'up' ? '▲' : '▼';
-      html += `
-        <div class="market-pill">
-          <div class="market-name">${esc(m.name)}</div>
-          <div class="market-val">${esc(m.value)}</div>
-          <div class="market-chg ${dir}">${arrow} ${esc(m.change)}</div>
-        </div>`;
-    }
-    html += `</div>`;
+    html += '<div class="section-label">Mercati</div><div class="market-strip">';
+    brief.markets.forEach(function(m){
+      var dir = m.direction === 'up' ? 'up' : 'down';
+      html += '<div class="mkt"><div class="mkt-name">'+esc(m.name)+'</div><div class="mkt-val">'+esc(m.value)+'</div><div class="mkt-chg '+dir+'">'+(dir==='up'?'▲':'▼')+' '+esc(m.change)+'</div></div>';
+    });
+    html += '</div>';
   }
 
-  // EXECUTIVE SUMMARY
-  html += `<div class="section-label">Executive Summary</div>`;
-  html += `<div class="exec-card"><div class="exec-text"><p>${esc(brief.executive_summary)}</p></div></div>`;
+  // Executive Summary
+  html += '<div class="section-label">Executive Summary</div>';
+  html += '<div class="exec-card"><div class="exec-text">'+esc(brief.executive_summary)+'</div></div>';
 
-  // SIGNALS
+  // Signals
   if (brief.signals && brief.signals.length) {
-    html += `<div class="section-label">Segnali del Giorno</div>`;
-    html += `<div class="signals-grid">`;
-    for (const s of brief.signals) {
-      const type = s.type || 'watch';
-      html += `
-        <div class="signal-card ${type}">
-          <div class="signal-header">
-            <span class="signal-badge ${type}">${type.toUpperCase()}</span>
-            <span class="signal-cat">${esc(s.category)}</span>
-          </div>
-          <div class="signal-title">${esc(s.title)}</div>
-          <div class="signal-tldr">${esc(s.tldr)}</div>
-        </div>`;
-    }
-    html += `</div>`;
+    html += '<div class="section-label">Segnali del Giorno</div><div class="signals-grid">';
+    brief.signals.forEach(function(s){
+      var t = s.type || 'watch';
+      html += '<div class="sig '+t+'"><div class="sig-head"><span class="sig-badge '+t+'">'+t.toUpperCase()+'</span><span class="sig-cat">'+esc(s.category)+'</span></div><div class="sig-title">'+esc(s.title)+'</div><div class="sig-tldr">'+esc(s.tldr)+'</div></div>';
+    });
+    html += '</div>';
   }
 
-  // CATEGORIES
+  // Categories
   if (brief.categories) {
-    for (const cat of brief.categories) {
-      if (!cat.articles || cat.articles.length === 0) continue;
-      html += `<div class="cat-section">`;
-      html += `<div class="cat-header">
-        <div class="cat-dot ${cat.color}"></div>
-        <div class="cat-name">${esc(cat.name)}</div>
-        <div class="cat-count">${cat.articles.length} articoli</div>
-      </div>`;
-      html += `<div class="news-list">`;
-      for (let i = 0; i < cat.articles.length; i++) {
-        const a = cat.articles[i];
-        const id = `art_${cat.id}_${i}`;
-        html += `
-          <div class="news-card" id="${id}" onclick="toggleArticle('${id}')">
-            <div class="news-meta">
-              <span class="news-source">${esc(a.source)}</span>
-              <span class="news-time">· ${esc(a.time)}</span>
-            </div>
-            <div class="news-title">${esc(a.title)}</div>
-            <div class="news-tldr">${esc(a.tldr)}</div>
-            <div class="news-detail">
-              <div class="news-detail-text">${esc(a.detail)}</div>
-              <div class="news-sowhat"><strong>→ So what?</strong>${esc(a.sowhat)}</div>
-              ${a.url ? `<a class="news-link" href="${a.url}" target="_blank" rel="noopener">Leggi l'articolo →</a>` : ''}
-            </div>
-          </div>`;
-      }
-      html += `</div></div>`;
-    }
+    brief.categories.forEach(function(cat){
+      if (!cat.articles || !cat.articles.length) return;
+      html += '<div class="cat-header"><div class="cat-dot '+esc(cat.color)+'"></div><div class="cat-name">'+esc(cat.name)+'</div><div class="cat-count">'+cat.articles.length+'</div></div>';
+      html += '<div class="news-list">';
+      cat.articles.forEach(function(a, i){
+        var id = 'n_'+esc(cat.id)+'_'+i;
+        html += '<div class="news" id="'+id+'" onclick="toggleNews(\''+id+'\')">';
+        html += '<div class="news-meta"><span>'+esc(a.source)+'</span><span>· '+esc(a.time)+'</span></div>';
+        html += '<div class="news-title">'+esc(a.title)+'</div>';
+        html += '<div class="news-tldr">'+esc(a.tldr)+'</div>';
+        html += '<div class="news-detail"><div class="news-body">'+esc(a.detail)+'</div>';
+        html += '<div class="news-sowhat"><strong>So what?</strong>'+esc(a.sowhat)+'</div>';
+        if (a.url) html += '<a class="news-link" href="'+esc(a.url)+'" target="_blank" rel="noopener">Leggi -&gt;</a>';
+        html += '</div></div>';
+      });
+      html += '</div>';
+    });
   }
 
   document.getElementById('content').innerHTML = html;
 }
 
-function toggleArticle(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('open');
-}
-
-function esc(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;');
-}
-
-// Enter key on API input
-document.addEventListener('DOMContentLoaded', () => {
-  const input = document.getElementById('apiKeyInput');
-  if (input) {
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') saveKey();
-    });
-  }
-  init();
-});
+window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
