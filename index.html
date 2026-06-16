@@ -309,21 +309,13 @@ async function generateBrief() {
 
   const today = new Date().toLocaleDateString('it-IT', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
 
-  const prompt = `Sei il redattore capo di "Orsini Intelligence", una newsletter personale di intelligence quotidiana per un senior executive nel settore AI e fintech.
+  const prompt = `Sei il redattore di "Orsini Intelligence". Data: ${today}.
 
-Data di oggi: ${today}
+Genera un briefing JSON. USA SOLO caratteri ASCII-safe nelle stringhe: niente apostrofi curly (' '), virgolette curly (" "), em-dash (—), o altri caratteri Unicode speciali. Usa apostrofo dritto (') e trattino normale (-).
 
-Genera un briefing mattutino sulle aree più rilevanti:
-1. AI e agenti (Claude Code, Anthropic, OpenAI, agenti dev, multi-agent, LLM)
-2. Tech e software (major releases, architetture, infrastrutture)
-3. Economia e mercati (macro, cripto BTC, S&P 500, EUR/USD, Gold, Brent)
-4. Geopolitica e policy AI (regolamentazioni, geopolitica tech)
-5. Scienza e innovazione
+Rispondi SOLO con JSON valido, compatto, senza testo fuori dal JSON.
 
-Usa le tue conoscenze più aggiornate. Per i mercati fornisci stime ragionevoli basate sui trend recenti.
-Rispondi SOLO con JSON valido, zero testo fuori dal JSON, zero markdown.
-
-Struttura ESATTA:
+Struttura ESATTA:`
 
 {
   "generated_at": "ora attuale HH:MM",
@@ -457,7 +449,15 @@ Regole:
 
     let brief;
     try { 
-      brief = JSON.parse(jsonStr); 
+      // Sanitize common problematic chars before parsing
+      const cleanJson = jsonStr
+        .replace(/[‘’]/g, "'")   // curly apostrophes
+        .replace(/[“”]/g, '"')   // curly quotes
+        .replace(/[–—]/g, '-')   // en/em dash
+        .replace(/[…]/g, '...')       // ellipsis
+        .replace(/[ -
+-]/g, ''); // control chars
+      brief = JSON.parse(cleanJson); 
       console.log('[OI] JSON parsato OK, categorie:', brief.categories?.length); 
     }
     catch(ex) { 
