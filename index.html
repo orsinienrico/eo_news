@@ -1,690 +1,566 @@
 <!DOCTYPE html>
-
 <html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Orsini Intelligence</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#f5f5f7;--card:#fff;--card2:#f9f9fb;
-  --border:#e5e5ea;--border2:#d1d1d6;
-  --ink:#1c1c1e;--ink2:#48484a;--ink3:#8e8e93;
-  --red:#ff3b30;--amber:#ff9500;--green:#34c759;--blue:#007aff;
-  --ft:#ff6b35;--ec:#c98a00;--ai:#007aff;--geo:#af52de;
-  --pol:#ff2d55;--ldr:#30b050;--tec:#5856d6;--mkt:#b07800;
-  --safe-b:env(safe-area-inset-bottom,0px);
-  --safe-t:env(safe-area-inset-top,44px);
+  --bg:#08090e;
+  --card:#0e1117;
+  --card2:#131720;
+  --border:#1c2130;
+  --border2:#252d3d;
+  --ink:#e8eaf0;
+  --ink2:#8892a4;
+  --ink3:#4a5468;
+  --blue:#4a90d9;
+  --amber:#c9843a;
+  --green:#3a9b5c;
+  --red:#c94a4a;
+  --purple:#7a5aad;
+  --teal:#3a8a9b;
+  --accent:#4a90d9;
 }
-html,body{background:#fff}
-body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-.safe-top{height:var(--safe-t);background:#fff}
-.header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 16px}
-.header-top{display:flex;align-items:center;justify-content:space-between;padding:10px 0 6px}
-.logo{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
-.header-right{display:flex;align-items:center;gap:8px}
-.refresh-btn{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--ink3);background:var(--bg);border:1.5px solid var(--border2);border-radius:100px;padding:5px 11px;cursor:pointer;white-space:nowrap;-webkit-user-select:none}
-.refresh-btn:active{background:var(--border);transform:scale(.97)}
-.live-badge{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--green)}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s ease infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.cr-strip{display:flex;align-items:center;justify-content:space-between;padding:5px 0 6px;border-bottom:1px solid var(--border);margin-bottom:6px}
-.cr-text{font-size:10px;color:var(--ink3);font-weight:500}
-.date-display{font-size:26px;font-weight:800;letter-spacing:-.03em;color:var(--ink);padding-bottom:4px;line-height:1}
-.date-display span{color:var(--ink3);font-weight:300}
-.edition-tag{display:inline-block;font-size:11px;font-weight:600;color:var(--ink3);padding-bottom:8px}
-.nav-wrap{overflow-x:auto;scrollbar-width:none;padding:6px 0 10px;-webkit-overflow-scrolling:touch}
-.nav-wrap::-webkit-scrollbar{display:none}
-.nav{display:flex;gap:6px;width:max-content}
-.nb{font-size:13px;font-weight:600;padding:6px 14px;border-radius:100px;border:1.5px solid var(--border2);background:transparent;color:var(--ink3);cursor:pointer;white-space:nowrap;transition:all .15s}
-.nb.active{color:#fff;border-color:transparent}
-.nb-all.active{background:var(--ink)}.nb-ft.active{background:var(--ft)}.nb-ec.active{background:var(--ec)}
-.nb-ai.active{background:var(--ai)}.nb-geo.active{background:var(--geo)}.nb-pol.active{background:var(--pol)}
-.nb-ldr.active{background:var(--ldr)}.nb-tec.active{background:var(--tec)}.nb-mkt.active{background:var(--mkt)}
-.content{padding:0 16px 40px}
-.sec-label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);display:flex;align-items:center;gap:8px;margin:20px 0 10px}
-.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.sec-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.exec-card{background:#fff;border-radius:16px;border:1px solid var(--border);padding:20px;margin:14px 0 6px;position:relative;overflow:hidden}
-.exec-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--amber),var(--blue),var(--green))}
-.exec-intro{font-size:14.5px;font-weight:400;line-height:1.72;color:var(--ink);margin-bottom:16px}
-.exec-intro strong{font-weight:700}
-.hi-r{color:#ff3b30!important;font-weight:600}.hi-a{color:#ff9500!important;font-weight:600}
-.hi-b{color:#007aff!important;font-weight:600}.hi-g{color:#34c759!important;font-weight:600}.hi-p{color:#af52de!important;font-weight:600}
-.recap-box{background:var(--bg);border-radius:14px;padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--ec)}
-.recap-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ec);margin-bottom:10px}
-.recap-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.recap-item{display:flex;flex-direction:column;gap:2px}
-.recap-val{font-size:18px;font-weight:800;letter-spacing:-.03em;line-height:1}
-.recap-label{font-size:10px;color:var(--ink3);font-weight:500}
-.exec-items{display:flex;flex-direction:column;gap:10px}
-.exec-item{background:var(--bg);border-radius:12px;padding:12px 14px;border-left:3px solid transparent}
-.exec-item.item-r{border-left-color:#ff3b30}.exec-item.item-a{border-left-color:#ff9500}
-.exec-item.item-b{border-left-color:#007aff}.exec-item.item-g{border-left-color:#34c759}.exec-item.item-p{border-left-color:#af52de}
-.exec-item-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px}
-.exec-item-date{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
-.dr{color:#ff3b30!important}.da{color:#ff9500!important}.db{color:#007aff!important}.dg{color:#34c759!important}.dp{color:#af52de!important}
-.exec-art-link{font-size:10px;font-weight:600;color:#007aff;text-decoration:none;white-space:nowrap;padding:3px 8px;border-radius:100px;background:rgba(0,122,255,.09);flex-shrink:0}
-.exec-art-link::after{content:'↗';font-size:9px;margin-left:2px}
-.exec-item-text{font-size:13px;line-height:1.55;color:var(--ink2)}
-.exec-item-text strong{color:var(--ink);font-weight:600}
-.sig-group-label{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin:14px 0 8px;display:flex;align-items:center;gap:7px}
-.sig-group-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:4px}
-.sig{background:#fff;border:1px solid var(--border);border-radius:14px;padding:13px;display:flex;flex-direction:column;gap:3px;text-decoration:none;color:inherit;-webkit-user-select:none}
-.sig:active{background:#f0f0f5}
-.sig-icon{font-size:20px;line-height:1;margin-bottom:1px}
-.sig-val{font-size:24px;font-weight:800;letter-spacing:-.04em;line-height:1.05;color:#1c1c1e}
-.sig-desc{font-size:11px;color:var(--ink3);line-height:1.35;font-weight:500;margin-top:1px}
-.sig-delta{font-size:11px;font-weight:700;margin-top:3px}
-.sig-src{font-size:10px;color:#007aff;font-weight:600;margin-top:4px}
-.sig-src::after{content:' ↗';font-size:9px}
-.c-r{color:#ff3b30!important}.c-a{color:#ff9500!important}.c-g{color:#34c759!important}.c-b{color:#007aff!important}.c-p{color:#af52de!important}
-.news-sec-title{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:24px 0 10px;display:flex;align-items:center;gap:8px}
-.news-sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.card{background:#fff;border-radius:16px;border:1px solid var(--border);margin-bottom:8px;overflow:hidden}
-.card.open{border-color:var(--border2)}
-.card-header{padding:14px 14px 0;cursor:pointer}
-.card-header:active{background:var(--bg)}
-.card-meta{display:flex;align-items:center;gap:7px;margin-bottom:8px}
-.urg{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.urg-r{background:#ff3b30;box-shadow:0 0 5px rgba(255,59,48,.4)}.urg-a{background:#ff9500}.urg-g{background:#34c759}
-.cat-chip{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:100px}
-.time-tag{font-size:11px;color:var(--ink3);margin-left:auto;font-weight:500;white-space:nowrap}
-.card-title{font-size:16px;font-weight:700;line-height:1.3;letter-spacing:-.02em;color:var(--ink);margin-bottom:7px}
-.card-summary{font-size:13px;line-height:1.6;color:var(--ink2);padding-bottom:2px}
-.card-link-row{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:#fff}
-.expand-btn{font-size:11px;font-weight:600;color:var(--ink3);display:flex;align-items:center;gap:5px;cursor:pointer;padding:4px 0}
-.expand-icon{width:22px;height:22px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink3);transition:transform .2s}
-.card.open .expand-icon{transform:rotate(180deg)}
-.news-link{font-size:12px;font-weight:600;color:#007aff;text-decoration:none;display:inline-flex;align-items:center;gap:3px;padding:6px 12px;border-radius:100px;background:rgba(0,122,255,.08)}
-.news-link::after{content:'↗';font-size:10px}
-.card-body{display:none;padding:14px;border-top:1px solid var(--border);background:var(--card2)}
-.card.open .card-body{display:block}
-.body-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px}
-.body-bullets{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
-.body-bullets li{font-size:13px;line-height:1.55;color:var(--ink2);padding-left:14px;position:relative}
-.body-bullets li::before{content:'›';position:absolute;left:0;color:var(--ink3);font-weight:700}
-.impact-box{border-left:3px solid;border-radius:0 10px 10px 0;padding:11px 12px;font-size:13px;line-height:1.6;color:var(--ink2);background:#fff}
-.impact-box strong{color:var(--ink);font-weight:600}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.card{animation:fadeUp .28s ease both}
-.card:nth-child(1){animation-delay:.03s}.card:nth-child(2){animation-delay:.06s}
-.card:nth-child(3){animation-delay:.09s}.card:nth-child(4){animation-delay:.12s}
-.card:nth-child(5){animation-delay:.15s}.card:nth-child(6){animation-delay:.18s}
-.sig{animation:fadeUp .22s ease both}
-.sig:nth-child(1){animation-delay:.04s}.sig:nth-child(2){animation-delay:.08s}
-.sig:nth-child(3){animation-delay:.12s}.sig:nth-child(4){animation-delay:.16s}
-.site-footer{margin:32px 0 0;padding:20px 16px 32px;border-top:1px solid var(--border);background:#fff}
-.footer-legal{font-size:11px;color:var(--ink3);line-height:1.65;margin-bottom:8px}
-.footer-divider{height:1px;background:var(--border);margin:12px 0}
-.footer-disclaimer{font-size:10.5px;color:var(--ink3);line-height:1.7}
-.footer-disclaimer strong{color:var(--ink2)}
+html,body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,sans-serif;min-height:100vh}
+
+/* ── SETUP ── */
+#setup{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.setup-wrap{max-width:420px;width:100%}
+.setup-logo{font-size:10px;letter-spacing:5px;color:var(--ink3);text-transform:uppercase;margin-bottom:16px}
+.setup-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--ink);margin-bottom:8px;line-height:1.1}
+.setup-sub{font-size:13px;color:var(--ink2);margin-bottom:32px;line-height:1.6}
+.setup-label{font-size:11px;letter-spacing:1px;color:var(--ink3);text-transform:uppercase;margin-bottom:8px;display:block}
+.setup-input{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.setup-input:focus{border-color:var(--blue)}
+.setup-input::placeholder{color:var(--ink3)}
+.setup-note{font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.5}
+.setup-btn{width:100%;margin-top:24px;background:var(--blue);border:none;border-radius:10px;padding:15px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity .2s}
+.setup-btn:hover{opacity:.85}
+.setup-btn:disabled{opacity:.4;cursor:not-allowed}
+.setup-security{margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:11px;color:var(--ink3);line-height:1.6}
+.setup-security strong{color:var(--ink2)}
+
+/* ── MAIN DASHBOARD ── */
+#dashboard{display:none;min-height:100vh}
+
+/* HEADER */
+.header{padding:20px 20px 0;position:relative}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
+.header-eyebrow{font-size:9px;letter-spacing:4px;color:var(--ink3);text-transform:uppercase}
+.header-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:var(--ink);line-height:1}
+.header-date{font-size:11px;color:var(--ink3);margin-top:4px}
+.header-actions{display:flex;gap:8px;align-items:center;margin-top:4px}
+.btn-refresh{background:var(--blue);border:none;border-radius:8px;padding:8px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .2s;display:flex;align-items:center;gap:6px}
+.btn-refresh:hover{opacity:.85}
+.btn-refresh:disabled{opacity:.4;cursor:not-allowed}
+.btn-settings{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;color:var(--ink2);font-size:14px;cursor:pointer;transition:opacity .2s}
+.btn-settings:hover{opacity:.7}
+.divider{height:1px;background:var(--border);margin:16px 20px 0}
+
+/* LOADING */
+#loading{display:none;padding:60px 20px;text-align:center}
+.loading-icon{font-size:32px;margin-bottom:16px;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.loading-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.loading-sub{font-size:13px;color:var(--ink2)}
+.loading-steps{margin-top:20px;display:flex;flex-direction:column;gap:6px}
+.loading-step{font-size:12px;color:var(--ink3);display:flex;align-items:center;gap:8px;justify-content:center}
+.loading-step.active{color:var(--blue)}
+.loading-step.done{color:var(--green)}
+
+/* CONTENT AREA */
+#content{padding:0 20px 40px}
+
+/* EXECUTIVE SUMMARY */
+.section-label{font-size:9px;letter-spacing:3px;color:var(--ink3);text-transform:uppercase;padding:20px 0 10px}
+.exec-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.exec-text{font-size:14px;color:var(--ink2);line-height:1.7}
+.exec-text p{margin-bottom:10px}
+.exec-text p:last-child{margin-bottom:0}
+
+/* SIGNALS */
+.signals-grid{display:flex;flex-direction:column;gap:8px}
+.signal-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;border-left:3px solid transparent}
+.signal-card.risk{border-left-color:var(--red)}
+.signal-card.alert{border-left-color:var(--amber)}
+.signal-card.watch{border-left-color:var(--blue)}
+.signal-card.opportunity{border-left-color:var(--green)}
+.signal-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.signal-badge{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:3px 7px;border-radius:4px}
+.signal-badge.risk{background:rgba(201,74,74,.15);color:var(--red)}
+.signal-badge.alert{background:rgba(201,132,58,.15);color:var(--amber)}
+.signal-badge.watch{background:rgba(74,144,217,.15);color:var(--blue)}
+.signal-badge.opportunity{background:rgba(58,155,92,.15);color:var(--green)}
+.signal-cat{font-size:10px;color:var(--ink3)}
+.signal-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.3}
+.signal-tldr{font-size:12px;color:var(--ink2);line-height:1.5}
+
+/* NEWS CATEGORIES */
+.cat-section{margin-bottom:4px}
+.cat-header{display:flex;align-items:center;gap:8px;padding:16px 0 10px}
+.cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cat-name{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink2)}
+.cat-count{font-size:10px;color:var(--ink3);margin-left:auto}
+.news-list{display:flex;flex-direction:column;gap:6px}
+.news-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:border-color .15s}
+.news-card:hover{border-color:var(--border2)}
+.news-card.open{border-color:var(--blue)}
+.news-meta{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.news-source{font-size:10px;color:var(--ink3);font-weight:500}
+.news-time{font-size:10px;color:var(--ink3)}
+.news-title{font-size:14px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:6px}
+.news-tldr{font-size:12px;color:var(--ink2);line-height:1.5}
+.news-detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.news-card.open .news-detail{display:block}
+.news-detail-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.news-sowhat{margin-top:10px;background:var(--card2);border-radius:8px;padding:10px;font-size:12px;color:var(--ink2);line-height:1.5}
+.news-sowhat strong{color:var(--ink);display:block;margin-bottom:3px;font-size:11px;letter-spacing:.5px;text-transform:uppercase}
+.news-link{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:11px;color:var(--blue);text-decoration:none}
+.news-link:hover{opacity:.7}
+
+/* MARKET STRIP */
+.market-strip{display:flex;gap:8px;overflow-x:auto;padding:0 0 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.market-strip::-webkit-scrollbar{display:none}
+.market-pill{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;flex-shrink:0;min-width:90px}
+.market-name{font-size:9px;letter-spacing:1px;color:var(--ink3);text-transform:uppercase;margin-bottom:3px}
+.market-val{font-size:14px;font-weight:700;color:var(--ink)}
+.market-chg{font-size:11px;font-weight:500}
+.market-chg.up{color:var(--green)}
+.market-chg.down{color:var(--red)}
+
+/* FOOTER */
+.footer{padding:24px 20px 40px;border-top:1px solid var(--border);margin-top:20px}
+.footer-copy{font-size:10px;color:var(--ink3);line-height:1.6}
+.footer-copy strong{color:var(--ink2)}
+
+/* ERROR */
+.error-card{background:rgba(201,74,74,.08);border:1px solid rgba(201,74,74,.2);border-radius:10px;padding:16px;margin:20px 0}
+.error-title{font-size:13px;font-weight:600;color:var(--red);margin-bottom:4px}
+.error-text{font-size:12px;color:var(--ink2);line-height:1.5}
+
+/* LAST UPDATE */
+.last-update{font-size:10px;color:var(--ink3);text-align:right;padding:8px 0 0}
+
+/* CATEGORY COLORS */
+.dot-ai{background:#4a90d9}
+.dot-tech{background:#7a5aad}
+.dot-eco{background:#c9843a}
+.dot-geo{background:#af52de;background:#7a5aad}
+.dot-geo{background:#9b6aad}
+.dot-pol{background:#c94a4a}
+.dot-sci{background:#3a9b5c}
+.dot-other{background:#4a5468}
+
+@media(min-width:600px){
+  .header{padding:28px 32px 0}
+  .divider{margin:20px 32px 0}
+  #content{padding:0 32px 60px}
+  .setup-wrap{max-width:460px}
+}
 </style>
 </head>
 <body>
-<div class="safe-top"></div>
-<div class="header">
-  <div class="header-top">
-    <div class="logo">Orsini Intelligence</div>
-    <div class="header-right">
-      <button class="refresh-btn" id="refreshBtn" onclick="doRefresh()">↺ Aggiorna</button>
-      <div class="live-badge"><div class="live-dot"></div>Live</div>
-    </div>
-  </div>
-  <div class="cr-strip">
-    <span class="cr-text">© <span class="footer-year">2026</span> Enrico Orsini — uso personale riservato 🔒</span>
-  </div>
-  <div class="date-display" id="dateDisplay"></div>
-  <div class="edition-tag">🌙 Edizione Sera · 18:00</div>
-  <div class="nav-wrap"><div class="nav">
-    <button class="nb nb-all active" onclick="filterCat('all',this)">Tutto</button>
-    <button class="nb nb-ft"  onclick="filterCat('ft',this)">🏦 Fintech</button>
-    <button class="nb nb-ec"  onclick="filterCat('ec',this)">📊 Economia</button>
-    <button class="nb nb-ai"  onclick="filterCat('ai',this)">🤖 AI</button>
-    <button class="nb nb-geo" onclick="filterCat('geo',this)">🌍 Geo</button>
-    <button class="nb nb-pol" onclick="filterCat('pol',this)">🏛️ Politica</button>
-    <button class="nb nb-ldr" onclick="filterCat('ldr',this)">💼 Leadership</button>
-    <button class="nb nb-tec" onclick="filterCat('tec',this)">🏗️ Tech</button>
-    <button class="nb nb-mkt" onclick="filterCat('mkt',this)">📈 Mercati</button>
-  </div></div>
-</div>
 
-<div class="content">
-
-<div id="execCard">
-  <div class="sec-label" style="margin-top:14px"><div class="sec-dot" style="background:var(--blue)"></div>Executive Summary · Recap Settimana · <span id="execDate"></span></div>
-  <div class="exec-card">
-
-```
-<div class="recap-box">
-  <div class="recap-title">📊 Chiusura Mercati · Venerdì 10 Aprile 2026</div>
-  <div class="recap-grid">
-    <div class="recap-item">
-      <div class="recap-val" style="color:#34c759">+0,89%</div>
-      <div class="recap-label">FTSE MIB · 47.750 punti</div>
-    </div>
-    <div class="recap-item">
-      <div class="recap-val" style="color:#34c759">+0,38%</div>
-      <div class="recap-label">DAX · in rialzo alla vigilia di Islamabad</div>
-    </div>
-    <div class="recap-item">
-      <div class="recap-val" style="color:#34c759">+0,79%</div>
-      <div class="recap-label">CAC 40 · Parigi positiva</div>
-    </div>
-    <div class="recap-item">
-      <div class="recap-val" style="color:#34c759">$72.050</div>
-      <div class="recap-label">Bitcoin · sopra $72K</div>
-    </div>
-    <div class="recap-item">
-      <div class="recap-val" style="color:#ff3b30">3,3%</div>
-      <div class="recap-label">CPI USA marzo · massimo da mag 2024</div>
-    </div>
-    <div class="recap-item">
-      <div class="recap-val" style="color:#34c759">75bp</div>
-      <div class="recap-label">Spread BTP-Bund · stabile, BTP 3,8%</div>
-    </div>
-    <div class="recap-item">
-      <div class="recap-val" style="color:#34c759">1,175</div>
-      <div class="recap-label">EUR/USD · massimo da fine febbraio</div>
-    </div>
-    <div class="recap-item">
-      <div class="recap-val" style="color:#ff3b30">3 aste</div>
-      <div class="recap-label">BTP oggi in asta · regolare collocamento</div>
+<!-- SETUP SCREEN -->
+<div id="setup">
+  <div class="setup-wrap">
+    <div class="setup-logo">Personal Intelligence</div>
+    <div class="setup-title">Orsini<br>Intelligence</div>
+    <div class="setup-sub">Dashboard di notizie AI-powered con aggiornamento live ogni mattina. Inserisci la tua Anthropic API key per iniziare.</div>
+    <label class="setup-label">Anthropic API Key</label>
+    <input class="setup-input" id="apiKeyInput" type="password" placeholder="sk-ant-..." autocomplete="off" autocorrect="off" spellcheck="false">
+    <div class="setup-note">La key è salvata solo nel tuo browser (localStorage). Non viene mai inviata ad altri server.</div>
+    <button class="setup-btn" id="setupBtn" onclick="saveKey()">Avvia Dashboard →</button>
+    <div class="setup-security">
+      <strong>🔒 Sicurezza</strong><br>
+      La API key non lascia mai il tuo dispositivo. Viene usata direttamente dal browser per chiamare l'API Anthropic con web search attiva. Costo stimato: ~$0.01 per briefing giornaliero.
     </div>
   </div>
 </div>
 
-<div class="exec-intro">
-  La settimana si chiude con i mercati in rialzo e gli occhi puntati su <strong>Islamabad domani</strong>: i negoziati USA–Iran erano programmati per oggi 10 aprile ma l'Iran ha condizionato la partecipazione al cessate il fuoco in Libano e allo sblocco degli asset. <span class="hi-a">Solo 15 navi hanno attraversato Hormuz dall'annuncio della tregua martedì 7 aprile</span> — Washington accusa Teheran di non rispettare l'accordo, Vance avverte: "Non prendeteci in giro." La <span class="hi-r">grande notizia macro di oggi è il CPI USA di marzo: 3,3% annuale</span>, massimo da maggio 2024, spinto dall'energia +12,5% (benzina +18,9%, gasolio riscaldamento +44,2%) — un effetto diretto della guerra. Il dato di oggi impatta direttamente sulle attese Fed: nessun taglio in vista. <span class="hi-b">Piazza Affari chiude a +0,89% a 47.750 punti</span>, trainata da Brunello Cucinelli (+5,7%) e dal settore bancario. In calo Leonardo (−5,3%) dopo l'annuncio di un cambio ai vertici voluto dal MEF. <span class="hi-g">L'euro sfora 1,175 dollari</span>, livello più alto da fine febbraio, mentre il Brent cala leggermente per le speranze sui negoziati. Bitcoin torna sopra $72.000. Il PMI manifatturiero eurozona rimane in territorio di contrazione. La settimana prossima: vertice Israele-Libano a Washington martedì, proseguimento negoziati Islamabad, Vinitaly a Verona 12-15 aprile.
-</div>
-
-<div class="exec-items">
-
-  <div class="exec-item item-r">
-    <div class="exec-item-header">
-      <div class="exec-item-date dr">⚡ 10 Apr · Sera</div>
-      <a href="https://tg24.sky.it/mondo/2026/04/10/iran-usa-guerra-israele-libano-diretta" target="_blank" class="exec-art-link">Sky TG24</a>
+<!-- MAIN DASHBOARD -->
+<div id="dashboard">
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-eyebrow">Personal Intelligence</div>
+        <div class="header-title">Orsini Intelligence</div>
+        <div class="header-date" id="headerDate"></div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-refresh" id="refreshBtn" onclick="generateBrief()">
+          <span id="refreshIcon">⟳</span> Aggiorna
+        </button>
+        <button class="btn-settings" onclick="resetKey()" title="Cambia API key">⚙</button>
+      </div>
     </div>
-    <div class="exec-item-text"><strong>Negoziati Islamabad in stallo:</strong> Iran condiziona partecipazione a cessate il fuoco in Libano + sblocco asset. Solo 15 navi hanno attraversato Hormuz da martedì. Vance guida delegazione USA, Ghalibaf quella iraniana. Iran studia possibile pedaggio in rial per il transito — Trump: "Gestione pessima, disonorevole."</div>
+    <div class="last-update" id="lastUpdate"></div>
   </div>
+  <div class="divider"></div>
 
-  <div class="exec-item item-r">
-    <div class="exec-item-header">
-      <div class="exec-item-date dr">10 Apr 2026</div>
-      <a href="https://www.ansa.it/sito/notizie/economia/2026/04/10/linflazione-americana-accelera-a-marzo-al-33_b5836d25-f4e9-43db-9066-7a5ca34087e0.html" target="_blank" class="exec-art-link">ANSA</a>
+  <div id="loading">
+    <div class="loading-icon">◈</div>
+    <div class="loading-title">Generazione briefing in corso…</div>
+    <div class="loading-sub">Claude sta cercando le notizie di oggi</div>
+    <div class="loading-steps">
+      <div class="loading-step" id="step1">⬡ Ricerca notizie AI e agenti</div>
+      <div class="loading-step" id="step2">⬡ Analisi mercati e tech</div>
+      <div class="loading-step" id="step3">⬡ Geopolitica e macro</div>
+      <div class="loading-step" id="step4">⬡ Sintesi executive</div>
     </div>
-    <div class="exec-item-text"><strong>CPI USA marzo: 3,3% annuale</strong> — massimo da maggio 2024, da 2,4% di febbraio. Balzo energetico del 12,5%: benzina +18,9%, gasolio riscaldamento +44,2%. Core CPI 2,6% (sotto attese 2,7%). La Fed non taglierà i tassi nel 2026: nessun taglio prezzato sul FedWatch Tool.</div>
   </div>
 
-  <div class="exec-item item-g">
-    <div class="exec-item-header">
-      <div class="exec-item-date dg">10 Apr 2026</div>
-      <a href="https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-10-aprile-2026" target="_blank" class="exec-art-link">SoldiOnline</a>
+  <div id="content"></div>
+
+  <div class="footer">
+    <div class="footer-copy">
+      © <span id="footerYear"></span> <strong>Enrico Orsini</strong>. Tutti i diritti riservati.<br>
+      Orsini Intelligence è una pubblicazione personale. Il formato editoriale, la struttura dei segnali e i contenuti originali sono proprietà intellettuale esclusiva di Enrico Orsini.<br><br>
+      <em>Contenuti generati con assistenza AI (Anthropic Claude + web search). Non costituiscono consulenza finanziaria o legale.</em>
     </div>
-    <div class="exec-item-text"><strong>Piazza Affari +0,89%</strong> a 47.750 punti. Brunello Cucinelli +5,74% dopo Q1 con fatturato +14% a tassi costanti. Buzzi +5,74%. Titoli bancari in rialzo (UniCredit, MPS, Mediobanca). In calo petroliferi (Eni) per discesa Brent. <strong>Leonardo −5,3%</strong>: MEF + Mimit depositano lista per cambio vertici all'assemblea del 7 maggio.</div>
-  </div>
-
-  <div class="exec-item item-a">
-    <div class="exec-item-header">
-      <div class="exec-item-date da">10 Apr 2026</div>
-      <a href="https://www.milanofinanza.it/news/borse-oggi-diretta-10-aprile-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202604100749125578" target="_blank" class="exec-art-link">MilanoFinanza</a>
-    </div>
-    <div class="exec-item-text"><strong>Euro a 1,175 dollari</strong> — livello più alto da fine febbraio, guadagno settimanale +1,5% vs USD. Mercati prezzano de-escalation a Islamabad domani. ACI Europe avverte: gli scali EU rischiano carenza "sistemica" di cherosene se Hormuz non riapre completamente entro 3 settimane.</div>
-  </div>
-
-  <div class="exec-item item-r">
-    <div class="exec-item-header">
-      <div class="exec-item-date dr">8-10 Apr 2026</div>
-      <a href="https://www.tgcom24.mediaset.it/mondo/guerra-iran-israele-usa-ultime-notizie-10-aprile_110873026-202602k.shtml" target="_blank" class="exec-art-link">TGCom24</a>
-    </div>
-    <div class="exec-item-text"><strong>Tregua fragilissima:</strong> Iran ha ribloccato Hormuz dopo attacchi israeliani in Libano (250+ morti a Beirut). Kuwait accusa Iran e alleati di attacchi con droni giovedì sera nonostante la tregua. Oleodotto Saudi Est-Ovest danneggiato (−700.000 bbl/giorno). Starmer in Qatar: "Ho discusso con Trump opzioni militari per Hormuz."</div>
-  </div>
-
-  <div class="exec-item item-b">
-    <div class="exec-item-header">
-      <div class="exec-item-date db">10 Apr 2026</div>
-      <a href="https://www.unita.it/2026/04/08/cosa-prevede-accordo-cessate-il-fuoco-iran-stati-uniti-piano-10-punti-stretto-hormuz/" target="_blank" class="exec-art-link">L'Unità</a>
-    </div>
-    <div class="exec-item-text"><strong>Piano Iran in 10 punti — la base dei negoziati:</strong> 1) Non aggressione 2) Controllo iraniano di Hormuz (con pedaggio) 3) Accettazione arricchimento uranio 4-5) Revoca sanzioni primarie e secondarie 6-8) Abrogazione risoluzioni ONU + risarcimenti 9) Ritiro truppe USA dalla regione 10) Fine guerra ovunque incluso Libano. Punti che Netanyahu ha già rifiutato.</div>
-  </div>
-
-  <div class="exec-item item-a">
-    <div class="exec-item-header">
-      <div class="exec-item-date da">Settimana prossima</div>
-      <a href="https://www.ansa.it/sito/notizie/mondo/2026/04/10/trump-pessima-gestione-a-hormuz-non-e-il-nostro-accordo.-israele-apre-ai-negoziati_4dd2b909-5d88-439c-b82b-d0fcb2602b8a.html" target="_blank" class="exec-art-link">ANSA</a>
-    </div>
-    <div class="exec-item-text"><strong>Agenda settimana prossima:</strong> Sabato 11 apr: veglia preghiera pace Papa in San Pietro. Martedì 13 apr: primo round Israele-Libano a Washington (Dipartimento di Stato). Domani-lunedì: proseguimento negoziati Islamabad se Iran partecipa. 12-15 apr: Vinitaly Verona. 15 apr: Webinar "Agentic AI in banking" FinTech Futures.</div>
-  </div>
-
-</div>
-```
-
   </div>
 </div>
-
-<!-- SIGNALS -->
-
-<div id="signalsWrap">
-
-  <div class="sec-label"><div class="sec-dot" style="background:#ff3b30"></div>Mercati · Chiusura 10 Apr</div>
-  <div class="sig-grid">
-    <a class="sig" href="https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-10-aprile-2026" target="_blank">
-      <div class="sig-icon">🇮🇹</div><div class="sig-val c-g">+0,89%</div>
-      <div class="sig-desc">FTSE MIB · 47.750 pt · Brunello Cucinelli +5,7%</div>
-      <div class="sig-delta c-r">Leonardo −5,3% · MEF cambia vertici</div><div class="sig-src">SoldiOnline</div>
-    </a>
-    <a class="sig" href="https://www.milanofinanza.it/news/borse-oggi-diretta-10-aprile-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202604100749125578" target="_blank">
-      <div class="sig-icon">🇩🇪</div><div class="sig-val c-g">+0,38%</div>
-      <div class="sig-desc">DAX · speranze negoziati Islamabad domani</div>
-      <div class="sig-delta c-g">CAC 40 +0,79% · FTSE 100 +0,37%</div><div class="sig-src">MilanoFinanza</div>
-    </a>
-    <a class="sig" href="https://www.ansa.it/sito/notizie/economia/2026/04/10/linflazione-americana-accelera-a-marzo-al-33_b5836d25-f4e9-43db-9066-7a5ca34087e0.html" target="_blank">
-      <div class="sig-icon">🔥</div><div class="sig-val c-r">3,3%</div>
-      <div class="sig-desc">CPI USA marzo · massimo da mag 2024 · energia +12,5%</div>
-      <div class="sig-delta c-r">↑ da 2,4% feb · Core 2,6%</div><div class="sig-src">ANSA</div>
-    </a>
-    <a class="sig" href="https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/agenda-del-10-aprile-2026-1_2026-04-10_TLB-BIT.html" target="_blank">
-      <div class="sig-icon">💱</div><div class="sig-val c-g">1,175</div>
-      <div class="sig-desc">EUR/USD · massimo da fine febbraio</div>
-      <div class="sig-delta c-g">↑ +1,5% settimana</div><div class="sig-src">Borsa Italiana</div>
-    </a>
-    <a class="sig" href="https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-10-aprile-2026" target="_blank">
-      <div class="sig-icon">📊</div><div class="sig-val c-g">75bp</div>
-      <div class="sig-desc">Spread BTP-Bund · stabile · BTP decenn. 3,8%</div>
-      <div class="sig-delta c-g">Tre BTP in asta oggi · collocamento regolare</div><div class="sig-src">SoldiOnline</div>
-    </a>
-    <a class="sig" href="https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-10-aprile-2026" target="_blank">
-      <div class="sig-icon">₿</div><div class="sig-val c-g">$72K</div>
-      <div class="sig-desc">Bitcoin · sopra $72.050 · ottimismo accordo</div>
-      <div class="sig-delta c-g">↑ rimbalzo da fine settimana</div><div class="sig-src">SoldiOnline</div>
-    </a>
-  </div>
-
-  <div class="sec-label"><div class="sec-dot" style="background:var(--geo)"></div>Geopolitica · Stato Tregua</div>
-  <div class="sig-grid">
-    <a class="sig" href="https://tg24.sky.it/mondo/2026/04/10/iran-usa-guerra-israele-libano-diretta" target="_blank">
-      <div class="sig-icon">🚢</div><div class="sig-val c-r" style="font-size:17px;padding-top:4px">15 navi</div>
-      <div class="sig-desc">Hormuz · solo 15 navi da martedì · quasi chiuso</div>
-      <div class="sig-delta c-r">Iran non rispetta accordo (Washington)</div><div class="sig-src">Sky TG24</div>
-    </a>
-    <a class="sig" href="https://tg24.sky.it/mondo/2026/04/10/iran-usa-guerra-israele-libano-diretta" target="_blank">
-      <div class="sig-icon">🕊️</div><div class="sig-val c-a" style="font-size:17px;padding-top:4px">Domani</div>
-      <div class="sig-desc">Negoziati Islamabad · se Iran partecipa</div>
-      <div class="sig-delta c-a">Vance vs Ghalibaf · piano 10 punti base</div><div class="sig-src">Sky TG24</div>
-    </a>
-    <a class="sig" href="https://www.ansa.it/sito/notizie/mondo/2026/04/10/trump-pessima-gestione-a-hormuz-non-e-il-nostro-accordo.-israele-apre-ai-negoziati_4dd2b909-5d88-439c-b82b-d0fcb2602b8a.html" target="_blank">
-      <div class="sig-icon">✈️</div><div class="sig-val c-a" style="font-size:17px;padding-top:4px">Mar 13</div>
-      <div class="sig-desc">Israele–Libano · Washington · primo round</div>
-      <div class="sig-delta c-a">Libano chiede tregua prima dei colloqui</div><div class="sig-src">ANSA</div>
-    </a>
-    <a class="sig" href="https://www.tgcom24.mediaset.it/mondo/guerra-iran-israele-usa-ultime-notizie-10-aprile_110873026-202602k.shtml" target="_blank">
-      <div class="sig-icon">⛽</div><div class="sig-val c-r" style="font-size:16px;padding-top:4px">3 sett.</div>
-      <div class="sig-desc">ACI Europe: cherosene EU esaurito in 3 sett.</div>
-      <div class="sig-delta c-r">Crisi sistemica se Hormuz non riapre</div><div class="sig-src">TGCom24</div>
-    </a>
-    <a class="sig" href="https://www.tgcom24.mediaset.it/mondo/guerra-iran-israele-usa-ultime-notizie-10-aprile_110873026-202602k.shtml" target="_blank">
-      <div class="sig-icon">🛢️</div><div class="sig-val c-r">−700K</div>
-      <div class="sig-desc">Oleodotto Saudi Est-Ovest · bbl/giorno persi</div>
-      <div class="sig-delta c-r">Attacco Iran · aggirava Hormuz</div><div class="sig-src">TGCom24</div>
-    </a>
-    <a class="sig" href="https://www.tgcom24.mediaset.it/mondo/guerra-iran-israele-usa-ultime-notizie-10-aprile_110873026-202602k.shtml" target="_blank">
-      <div class="sig-icon">🇮🇷</div><div class="sig-val c-a" style="font-size:17px;padding-top:4px">Rial</div>
-      <div class="sig-desc">Iran valuta pedaggio in rial per Hormuz</div>
-      <div class="sig-delta c-a">Nuovo modello controllo stretto</div><div class="sig-src">TGCom24</div>
-    </a>
-  </div>
-
-</div>
-
-<!-- NEWS -->
-
-<div id="newsFeed">
-
-<div class="news-sec-title" data-cat="geo"><div class="sec-dot" style="background:var(--geo)"></div>🌍 Geopolitica · Iran &amp; Medio Oriente</div>
-
-<div class="card" data-cat="geo">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-r"></div><span class="cat-chip" style="background:rgba(175,82,222,.1);color:var(--geo)">Geopolitica</span><span class="time-tag">10 Apr · Sera</span></div>
-    <div class="card-title">Negoziati Islamabad in bilico: Iran condiziona partecipazione a Libano e sblocco asset — solo 15 navi da Hormuz</div>
-    <div class="card-summary">L'Iran ha annunciato che i negoziati programmati per oggi a Islamabad restano sospesi finché gli USA non rispettano il cessate il fuoco in Libano e Israele non cessa gli attacchi. Trump risponde: "L'Iran gestisce Hormuz in modo pessimo, disonorevole — questo non è l'accordo che abbiamo fatto." Vance avverte Teheran: "Non prendeteci in giro ai negoziati."</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://tg24.sky.it/mondo/2026/04/10/iran-usa-guerra-israele-libano-diretta" target="_blank" class="news-link">Sky TG24</a>
-  </div>
-  <div class="card-body">
-    <div class="body-label">Stato della tregua (10 aprile)</div>
-    <ul class="body-bullets">
-      <li>Solo 15 navi totali hanno attraversato Hormuz da martedì 7 aprile — quasi nessuna petroliera o nave gas</li>
-      <li>Iran valuta pedaggio in rial per il transito — nuova proposta per mantenere il controllo economico dello Stretto</li>
-      <li>Kuwait accusa Iran e alleati di attacchi con droni giovedì sera nonostante la tregua</li>
-      <li>Starmer in Qatar: ha discusso con Trump "opzioni militari" per rendere Hormuz navigabile — coalizione in costruzione</li>
-      <li>Oleodotto Saudi Est-Ovest danneggiato: −700.000 bbl/giorno (aggirava Hormuz per le esportazioni saudite)</li>
-    </ul>
-    <div class="impact-box" style="border-color:var(--geo)"><strong>Watch domani:</strong> se i negoziati a Islamabad partono, il Brent scende e i mercati asiatici aprono in forte rialzo. Se saltano, la settimana prossima sarà molto difficile. Il discriminante è la posizione di Netanyahu sul Libano.</div>
-  </div>
-</div>
-
-<div class="card" data-cat="geo">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-r"></div><span class="cat-chip" style="background:rgba(175,82,222,.1);color:var(--geo)">Geopolitica</span><span class="time-tag">8-10 Apr 2026</span></div>
-    <div class="card-title">Il piano Iran in 10 punti: controllo Hormuz, revoca sanzioni, uranio, risarcimenti — Netanyahu rifiuta il punto 10</div>
-    <div class="card-summary">L'Iran ha presentato un piano in 10 punti come base dei negoziati: non aggressione, controllo iraniano di Hormuz con pedaggio, accettazione dell'arricchimento dell'uranio, revoca di tutte le sanzioni primarie e secondarie, abrogazione delle risoluzioni ONU, risarcimenti, ritiro truppe USA, fine della guerra ovunque incluso Libano. Trump lo definisce "attuabile", Netanyahu rifiuta il punto 10.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.ilfattoquotidiano.it/2026/04/08/piano-iran-cessate-fuoco-10-punti-trattative-trump-usa/8348907/" target="_blank" class="news-link">Il Fatto Quotidiano</a>
-  </div>
-  <div class="card-body">
-    <div class="body-label">I 10 punti del piano iraniano</div>
-    <ul class="body-bullets">
-      <li>1) Impegno di non aggressione reciproca</li>
-      <li>2) Controllo iraniano di Hormuz con pedaggio — nuova norma permanente</li>
-      <li>3) Accettazione USA dell'arricchimento uranio (mancante nella versione inglese)</li>
-      <li>4-5) Revoca sanzioni primarie e secondarie</li>
-      <li>6-7) Abrogazione risoluzioni ONU e AIEA</li>
-      <li>8) Risarcimento all'Iran per danni di guerra</li>
-      <li>9) Ritiro delle forze USA combattenti dalla regione</li>
-      <li>10) Cessazione della guerra ovunque, incluso Libano — qui Netanyahu blocca tutto</li>
-    </ul>
-    <div class="impact-box" style="border-color:var(--geo)">Il punto 2 è la vera rivoluzione: se accettato, l'Iran ottiene il controllo permanente di Hormuz. I senatori democratici USA lo definiscono "una vittoria storica per l'Iran." Il punto 3 in versione farsi include l'arricchimento — in versione inglese no: discrepanza che dovrà essere risolta a Islamabad.</div>
-  </div>
-</div>
-
-<div class="card" data-cat="geo">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-a"></div><span class="cat-chip" style="background:rgba(175,82,222,.1);color:var(--geo)">Geopolitica</span><span class="time-tag">10 Apr 2026</span></div>
-    <div class="card-title">ACI Europe: scali EU a rischio carenza sistemica di cherosene in 3 settimane se Hormuz non riapre completamente</div>
-    <div class="card-summary">L'associazione aeroportuale europea ACI Europe ha scritto al commissario EU ai trasporti avvertendo che gli scali europei rischiano una carenza "sistemica" di carburante per aerei se Hormuz non viene completamente riaperto entro tre settimane. Le riserve di cherosene si stanno esaurendo per "l'impatto delle attività militari" sulle forniture. Implicazione diretta: interruzioni dei voli in Europa.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://tg24.sky.it/mondo/2026/04/10/iran-usa-guerra-israele-libano-diretta" target="_blank" class="news-link">Sky TG24</a>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--geo)"><strong>Impatto diretto:</strong> se entro fine aprile Hormuz non riapre, le compagnie aeree europee iniziano a cancellare voli per mancanza di carburante. Il costo del kerosene è già aumentato del 30%+. Per ION Group e i viaggi di lavoro: iniziare a pianificare con anticipo e prenotare con tariffe che includano carburante.</div>
-  </div>
-</div>
-
-<!-- ECONOMIA -->
-
-<div class="news-sec-title" data-cat="ec"><div class="sec-dot" style="background:var(--ec)"></div>📊 Economia</div>
-
-<div class="card" data-cat="ec">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-r"></div><span class="cat-chip" style="background:rgba(201,138,0,.12);color:var(--ec)">Economia</span><span class="time-tag">10 Apr 2026</span></div>
-    <div class="card-title">CPI USA marzo: 3,3% — massimo da maggio 2024, benzina +18,9% per guerra Iran. Core 2,6%, Fed bloccata</div>
-    <div class="card-summary">L'inflazione USA accelera bruscamente a marzo: 3,3% annuale (atteso 3,4%), da 2,4% di febbraio. Il salto è quasi interamente energetico: benzina +18,9%, gasolio riscaldamento +44,2%, indice energia totale +12,5%. Core CPI stabile al 2,6%. Il prezzo medio della benzina USA ha superato $4 al gallone per la prima volta in tre anni. La Fed non può tagliare i tassi.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.teleborsa.it/News/2026/04/10/usa-inflazione-accelera-a-marzo-ma-meno-delle-attese-al-3-3percent-su-anno-107.html" target="_blank" class="news-link">Teleborsa</a>
-  </div>
-  <div class="card-body">
-    <div class="body-label">Breakdown CPI marzo 2026</div>
-    <ul class="body-bullets">
-      <li><strong>Energia totale:</strong> +12,5% YoY — driver principale dell'accelerazione</li>
-      <li><strong>Benzina:</strong> +18,9% — $4+ al gallone per prima volta da 3 anni</li>
-      <li><strong>Gasolio riscaldamento:</strong> +44,2% — massimo degli ultimi anni</li>
-      <li><strong>Core (no food/energy):</strong> +2,6% YoY — stabile, sotto attese 2,7%</li>
-      <li><strong>Mensilmente:</strong> +0,9% — massimo da giugno 2022</li>
-    </ul>
-    <div class="impact-box" style="border-color:var(--ec)"><strong>Impatto Fed:</strong> nessun taglio tassi in vista nel 2026. Il FedWatch Tool prezza 99,2% probabilità di no change. Se la guerra si risolve, l'energia scende rapidamente e il CPI torna sotto 2,5% entro giugno. Se la guerra si prolunga, la Fed è in stagflation trap: non può tagliare per l'inflazione, non può alzare per la crescita debole.</div>
-  </div>
-</div>
-
-<div class="card" data-cat="ec">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-g"></div><span class="cat-chip" style="background:rgba(201,138,0,.12);color:var(--ec)">Economia</span><span class="time-tag">10 Apr 2026</span></div>
-    <div class="card-title">Brunello Cucinelli +5,7%: Q1 2026 con fatturato +14% a cambi costanti — Americhe e Asia trainano il lusso italiano</div>
-    <div class="card-summary">Brunello Cucinelli ha chiuso il primo trimestre 2026 con un fatturato di €369 milioni, in crescita del 14% a tassi di cambio costanti (+8,1% a cambi correnti). Vendite eccezionali nelle Americhe e in Asia. Il titolo guida la classifica del FTSE MIB a +5,74%. Il settore lusso italiano dimostra resilienza anche in contesti geopolitici turbolenti.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.milanofinanza.it/news/borse-oggi-diretta-10-aprile-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202604100749125578" target="_blank" class="news-link">MilanoFinanza</a>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--ec)">Il lusso italiano (Brunello Cucinelli, Campari, Prysmian) dimostra che la crisi energetica colpisce in modo molto asimmetrico i settori. Chi serve clienti ad alto reddito nelle Americhe e in Asia è protetto. Chi è esposto ai costi energetici europei (industria, utilities) sta soffrendo.</div>
-  </div>
-</div>
-
-<div class="card" data-cat="ec">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-a"></div><span class="cat-chip" style="background:rgba(201,138,0,.12);color:var(--ec)">Economia</span><span class="time-tag">10 Apr 2026</span></div>
-    <div class="card-title">Germania CPI marzo: atteso +2,7% — produzione industriale Italia: +0,5% atteso. Agenda macro della giornata</div>
-    <div class="card-summary">L'agenda macro di oggi includeva i dati CPI Germania (atteso +2,7% da +1,9%), produzione industriale Italia (atteso +0,5%), e fiducia consumatori USA Università Michigan (atteso 51,6, da 53,3 — in calo). Il dato più importante rimane il CPI USA che ha dominato la giornata. L'euro ha tenuto bene a 1,175 nonostante il dato inflattivo USA.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.borsaitaliana.it/borsa/notizie/teleborsa/finanza/agenda-del-10-aprile-2026-1_2026-04-10_TLB-BIT.html" target="_blank" class="news-link">Borsa Italiana</a>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--ec)">Il paradosso di oggi: CPI USA a 3,3% (inflazione alta) ma euro in rialzo vs dollaro. Il mercato scommette che la risoluzione del conflitto Iran farà scendere rapidamente i prezzi energetici, riportando il CPI verso il 2%. Se questa scommessa è sbagliata, l'EUR/USD tornerà a scendere rapidamente.</div>
-  </div>
-</div>
-
-<!-- POLITICA -->
-
-<div class="news-sec-title" data-cat="pol"><div class="sec-dot" style="background:var(--pol)"></div>🏛️ Politica</div>
-
-<div class="card" data-cat="pol">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-r"></div><span class="cat-chip" style="background:rgba(255,45,85,.1);color:var(--pol)">Politica IT</span><span class="time-tag">10 Apr 2026</span></div>
-    <div class="card-title">MEF e Mimit depositano lista per cambio vertici Leonardo — assemblea 7 maggio: titolo crolla −5,3%</div>
-    <div class="card-summary">Il Ministero dell'Economia e il Ministero delle Imprese hanno depositato, di concerto, una lista che prevede un cambio ai vertici di Leonardo SpA. L'assemblea degli azionisti è convocata per il 7 maggio 2026. Il MEF detiene il 30,2% del capitale. La notizia ha fatto crollare il titolo del −5,3% a €56,28. Avio ha simpatizzato con −4,84%.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-10-aprile-2026" target="_blank" class="news-link">SoldiOnline</div>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--pol)">Il cambio ai vertici di Leonardo in piena crisi geopolitica è un segnale politico potente: il governo vuole un CEO più allineato alla linea Meloni sulla gestione del dossier difesa e sulle relazioni con NATO e USA nel conflitto Iran. L'assemblea del 7 maggio sarà uno degli eventi corporate più seguiti del 2026 in Italia.</div>
-  </div>
-</div>
-
-<div class="card" data-cat="pol">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-a"></div><span class="cat-chip" style="background:rgba(255,45,85,.1);color:var(--pol)">Politica EU</span><span class="time-tag">10 Apr 2026</span></div>
-    <div class="card-title">Israele apre ai negoziati con il Libano: primo round martedì 13 aprile a Washington — condizionato al cessate il fuoco</div>
-    <div class="card-summary">Netanyahu, sotto pressione di Trump (terza telefonata tesa in una settimana), ha aperto ai negoziati diretti con il Libano. Il primo round si terrà martedì 13 aprile a Washington al Dipartimento di Stato, con gli ambasciatori dei due paesi e il mediatore USA Michel Issa. Il Libano chiede il cessate il fuoco come precondizione. Hezbollah ha già dichiarato che risponderà a qualsiasi attacco israeliano.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.ansa.it/sito/notizie/mondo/2026/04/10/trump-pessima-gestione-a-hormuz-non-e-il-nostro-accordo.-israele-apre-ai-negoziati_4dd2b909-5d88-439c-b82b-d0fcb2602b8a.html" target="_blank" class="news-link">ANSA</a>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--pol)">L'apertura di Netanyahu ai negoziati con il Libano è il prerequisito che l'Iran chiede per partecipare a Islamabad. Se domani Israel segnala de-escalation concreta in Libano, i negoziati USA-Iran possono partire. La settimana prossima è la più importante dell'intero conflitto.</div>
-  </div>
-</div>
-
-<!-- FINTECH -->
-
-<div class="news-sec-title" data-cat="ft"><div class="sec-dot" style="background:var(--ft)"></div>🏦 Fintech</div>
-
-<div class="card" data-cat="ft">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-a"></div><span class="cat-chip" style="background:rgba(255,107,53,.12);color:var(--ft)">Fintech</span><span class="time-tag">10 Apr 2026</span></div>
-    <div class="card-title">Anima: raccolta netta marzo negativa per −5,63 miliardi — la geopolitica riduce la propensione all'investimento retail</div>
-    <div class="card-summary">Anima Holding ha comunicato che la raccolta netta di marzo 2026 è stata negativa per €5,63 miliardi a causa della situazione geopolitica "che ha ridotto la propensione all'investimento nel mercato retail, mentre il calo dei mercati ha influito direttamente sulle masse in gestione." Il CEO Saverio Perissinotto ha commentato la situazione. Il titolo cede −0,30%.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.milanofinanza.it/news/borse-oggi-diretta-10-aprile-2026-chiusura-apertura-europee-borsa-milano-ftse-mib-piazza-affari-202604100749125578" target="_blank" class="news-link">MilanoFinanza</a>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--ft)">Il dato Anima è il segnale più chiaro dell'impatto della crisi geopolitica sul wealth management italiano: la raccolta retail si blocca in periodi di alta incertezza. Le piattaforme fintech che offrono prodotti di protezione del capitale e strumenti difensivi (gold ETF, inflation-linked bonds) stanno beneficiando di questo contesto.</div>
-  </div>
-</div>
-
-<div class="card" data-cat="ft">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-a"></div><span class="cat-chip" style="background:rgba(255,107,53,.12);color:var(--ft)">Fintech</span><span class="time-tag">Apr 2026</span></div>
-    <div class="card-title">CLARITY Act: markup Senate Banking Committee previsto fine aprile — le banche vincono, yield sugli stablecoin vietato</div>
-    <div class="card-summary">Il markup del CLARITY Act al Senate Banking Committee è previsto per fine aprile. Il testo attuale vieta il rendimento passivo sugli stablecoin — esattamente quello che le banche chiedevano. Coinbase e Stripe si oppongono. Senza un crypto czar alla Casa Bianca, la lobby bancaria domina il processo legislativo. Il voto finale potrebbe arrivare prima dell'estate.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.fintechweekly.com/news/clarity-act-banks-winning-stablecoin-yield-2026" target="_blank" class="news-link">FinTech Weekly</a>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--ft)">Fine aprile sarà il momento della verità per il CLARITY Act. Se passa con divieto di yield, il modello di business degli stablecoin che competono con i conti risparmio bancari diventa illegale negli USA. Le piattaforme fintech costruite su questo modello hanno meno di 3 settimane per pianificare alternative.</div>
-  </div>
-</div>
-
-<!-- AI -->
-
-<div class="news-sec-title" data-cat="ai"><div class="sec-dot" style="background:var(--ai)"></div>🤖 AI</div>
-
-<div class="card" data-cat="ai">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-r"></div><span class="cat-chip" style="background:rgba(0,122,255,.1);color:var(--ai)">AI</span><span class="time-tag">6 Apr 2026</span></div>
-    <div class="card-title">GPT-6 leak: lancio 14 aprile, prestazioni +40%, 2M token — OpenAI in "grande riorganizzazione" della leadership</div>
-    <div class="card-summary">Secondo indiscrezioni circolate questa settimana, GPT-6 sarà lanciato il 14 aprile con prestazioni +40% rispetto a GPT-5.4, contesto da 2 milioni di token, e definito internamente "l'ultimo 20% verso l'AGI." Contemporaneamente OpenAI sta effettuando una grande riorganizzazione della leadership: CMO dimissionario, responsabile AGI in congedo malattia, COO che cambia ruolo.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.bitget.com/it/news/detail/12560605338460" target="_blank" class="news-link">Bitget</a>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--ai)"><strong>4 giorni al presunto lancio:</strong> se il leak è accurato, GPT-6 è la più grande release AI da GPT-4. La concorrenza di Anthropic (Claude Mythos) e xAI (Grok 5) dovrà rispondere immediatamente. La prossima settimana potrebbe essere la più intensa nella storia dei frontier model.</div>
-  </div>
-</div>
-
-<div class="card" data-cat="ai">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-a"></div><span class="cat-chip" style="background:rgba(0,122,255,.1);color:var(--ai)">AI</span><span class="time-tag">15 Apr 2026</span></div>
-    <div class="card-title">15 aprile: webinar "Agentic AI in banking" — FinTech Futures + panel industry su applicazioni pratiche</div>
-    <div class="card-summary">Mercoledì 15 aprile, FinTech Futures organizza il webinar "Agentic AI in banking: Exploring key applications and best practices for implementation." Il panel include esperti che stanno già implementando agenti AI in produzione nel settore bancario. Wells Fargo, Visa e altre istituzioni hanno piloti avanzati. Registrazione disponibile sul sito FinTech Futures.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.fintechfutures.com/" target="_blank" class="news-link">FinTech Futures</a>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--ai)"><strong>Action item:</strong> registrarsi al webinar del 15 aprile. È il benchmark più aggiornato disponibile pubblicamente su come le banche stanno implementando AI agentica in produzione. Direttamente rilevante per SOMA e le decisioni architetturali di ION Group.</div>
-  </div>
-</div>
-
-<!-- MERCATI -->
-
-<div class="news-sec-title" data-cat="mkt"><div class="sec-dot" style="background:var(--mkt)"></div>📈 Mercati</div>
-
-<div class="card" data-cat="mkt">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-a"></div><span class="cat-chip" style="background:rgba(176,120,0,.12);color:var(--mkt)">Mercati</span><span class="time-tag">10 Apr 2026</span></div>
-    <div class="card-title">Settimana in rialzo per le borse EU: speranze su Islamabad dominano. Lunedì apertura dipende da notte di sabato</div>
-    <div class="card-summary">I mercati europei chiudono la settimana in positivo — DAX, CAC40, FTSE MIB tutti in rialzo — trainati dalle speranze sui negoziati a Islamabad. L'apertura di lunedì dipenderà interamente da cosa accade domani sabato durante i colloqui USA-Iran. Un accordo parziale su Hormuz basterebbe per un gap up del 2-3% in apertura.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.soldionline.it/notizie/azioni-italia/borsa-italiana-commento-giornata-10-aprile-2026" target="_blank" class="news-link">SoldiOnline</a>
-  </div>
-  <div class="card-body">
-    <div class="body-label">Scenario apertura lunedì</div>
-    <ul class="body-bullets">
-      <li><strong>Accordo Islamabad (anche parziale):</strong> gap up EU 2-3%, Brent −$10-15, EUR/USD stabile</li>
-      <li><strong>Negoziati rinviati / stallo:</strong> apertura flat o leggermente negativa, Brent stabile</li>
-      <li><strong>Rottura accordo + attacchi:</strong> gap down −5%+, Brent verso $120, sell-off generalizzato</li>
-    </ul>
-    <div class="impact-box" style="border-color:var(--mkt)">Il mercato sta prezzando il secondo scenario (stallo temporaneo) come il più probabile, con piccola probabilità di accordo che giustifica i rialzi di oggi. La posizione rischio-rendimento resta asimmetrica verso il basso. Non incrementare posizioni prima di lunedì mattina.</div>
-  </div>
-</div>
-
-<div class="card" data-cat="mkt">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-a"></div><span class="cat-chip" style="background:rgba(176,120,0,.12);color:var(--mkt)">Mercati</span><span class="time-tag">Apr 2026</span></div>
-    <div class="card-title">Morgan Stanley: "La Fed probabilmente taglierà i tassi nel 2026 nonostante lo shock petrolifero"</div>
-    <div class="card-summary">Morgan Stanley mantiene la previsione di un taglio dei tassi Fed nel 2026 nonostante il CPI di marzo al 3,3%. La tesi: lo shock energetico è temporaneo e legato esclusivamente al conflitto Iran; il core CPI rimane sotto controllo al 2,6%. Se e quando Hormuz riapre, l'inflazione scende rapidamente e la Fed potrà agire nel secondo semestre.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://m.it.investing.com/holiday-calendar/" target="_blank" class="news-link">Investing.com</a>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--mkt)">La view Morgan Stanley è quella del mercato oggi (EUR/USD a 1,175 lo conferma). Il trade è: comprare obbligazioni EU a lunga scadenza ora, aspettando che la risoluzione di Hormuz comprima l'inflazione e forzi un taglio Fed nel H2. Trade con elevato rischio scenario se la guerra si prolunga.</div>
-  </div>
-</div>
-
-<!-- LEADERSHIP -->
-
-<div class="news-sec-title" data-cat="ldr"><div class="sec-dot" style="background:var(--ldr)"></div>💼 Leadership</div>
-
-<div class="card" data-cat="ldr">
-  <div class="card-header" onclick="toggleCard(this.closest('.card'))">
-    <div class="card-meta"><div class="urg urg-a"></div><span class="cat-chip" style="background:rgba(48,176,80,.1);color:var(--ldr)">Leadership</span><span class="time-tag">10 Apr 2026</span></div>
-    <div class="card-title">Vinitaly 2026 dal 12 aprile a Verona — il settore vino italiano usa la crisi come opportunità di internazionalizzazione</div>
-    <div class="card-summary">La 58ª edizione di Vinitaly si svolge a Verona dal 12 al 15 aprile 2026, con la presenza delle principali cantine italiane. Cantina del Taburno e Cantina La Fortezza di Torrecuso presenteranno le loro etichette del Sannio campano. Il settore agri-food italiano continua a crescere nonostante la crisi energetica, puntando sull'export verso Americhe e Asia.</div>
-  </div>
-  <div class="card-link-row">
-    <div class="expand-btn" onclick="toggleCard(this.closest('.card'))"><span>Dettagli</span><span class="expand-icon">▾</span></div>
-    <a href="https://www.ilfattoquotidiano.it/2026/04/08/piano-iran-cessate-fuoco-10-punti-trattative-trump-usa/8348907/" target="_blank" class="news-link">IlFattoQuotidiano</a>
-  </div>
-  <div class="card-body">
-    <div class="impact-box" style="border-color:var(--ldr)">Il Made in Italy agri-food (+14% Brunello Cucinelli, Vinitaly in crescita) dimostra che il lusso alimentare italiano è un asset anticiclico. In un contesto di crisi energetica e inflazione, i consumatori premium nelle Americhe e in Asia continuano a spendere sul lusso italiano.</div>
-  </div>
-</div>
-
-</div><!-- /newsFeed -->
-</div><!-- /content -->
-
-<footer class="site-footer">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-    <div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)">Orsini Intelligence</div>
-    <div style="font-size:10px;font-weight:600;color:var(--ink3);background:var(--bg);border:1px solid var(--border);padding:3px 9px;border-radius:100px">© <span class="footer-year">2026</span> Enrico Orsini</div>
-  </div>
-  <div class="footer-legal"><strong>© <span class="footer-year">2026</span> Enrico Orsini. Tutti i diritti riservati.</strong> Protetto dalla Legge 633/1941, Direttiva UE 2019/790 e Convenzione di Berna.</div>
-  <div class="footer-divider"></div>
-  <div class="footer-disclaimer"><strong>Disclaimer.</strong> Informazioni a scopo informativo e di analisi personale. Non costituiscono consulenza finanziaria ai sensi del D.Lgs. 58/1998 (TUF) e della Direttiva MiFID II (2014/65/UE).</div>
-</footer>
 
 <script>
-function toggleCard(card){
-  var isOpen=card.classList.contains('open');
-  document.querySelectorAll('.card.open').forEach(function(c){c.classList.remove('open')});
-  if(!isOpen){card.classList.add('open');setTimeout(function(){card.scrollIntoView({behavior:'smooth',block:'nearest'})},60)}
-}
-function filterCat(cat,btn){
-  document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('active')});
-  btn.classList.add('active');
-  var exec=document.getElementById('execCard');
-  var sw=document.getElementById('signalsWrap');
-  if(cat==='all'){
-    exec.style.display='';sw.style.display='';
-    document.querySelectorAll('.card[data-cat],.news-sec-title[data-cat]').forEach(function(el){el.style.display=''});
-  } else {
-    exec.style.display='none';sw.style.display='none';
-    document.querySelectorAll('.news-sec-title[data-cat]').forEach(function(t){t.style.display=t.dataset.cat===cat?'':'none'});
-    document.querySelectorAll('.card[data-cat]').forEach(function(c){c.style.display=c.dataset.cat===cat?'':'none'});
-  }
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function updateDates(){
-  var d=new Date();
-  var days=['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
-  var months=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
-  var monthsF=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
-  var yr=d.getFullYear();var day=d.getDate();var mon=months[d.getMonth()];var monF=monthsF[d.getMonth()];var dow=days[d.getDay()];
-  var el=document.getElementById('dateDisplay');
-  if(el)el.innerHTML=dow+' <span>'+day+' '+mon+' '+yr+'</span>';
-  var ed=document.getElementById('execDate');
-  if(ed)ed.textContent=dow+' '+day+' '+monF+' '+yr;
-  document.querySelectorAll('.footer-year').forEach(function(y){y.textContent=yr});
-  document.title='Orsini Intelligence \u00b7 '+day+' '+mon+' '+yr;
-}
-function doRefresh(){
-  var btn=document.getElementById('refreshBtn');
-  if(btn)btn.style.opacity='.5';
-  setTimeout(function(){location.reload(true)},300);
-}
-updateDates();
-</script>
+const STORAGE_KEY = 'oi_api_key';
+const BRIEF_CACHE_KEY = 'oi_last_brief';
+const BRIEF_DATE_KEY = 'oi_brief_date';
 
+function init() {
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+  updateHeaderDate();
+
+  const key = localStorage.getItem(STORAGE_KEY);
+  if (key) {
+    showDashboard();
+    // Load cached brief if same day
+    const cachedDate = localStorage.getItem(BRIEF_DATE_KEY);
+    const today = new Date().toDateString();
+    if (cachedDate === today) {
+      const cached = localStorage.getItem(BRIEF_CACHE_KEY);
+      if (cached) {
+        try {
+          renderBrief(JSON.parse(cached));
+          document.getElementById('lastUpdate').textContent = 'Aggiornato oggi · ' + new Date().toLocaleTimeString('it-IT', {hour:'2-digit',minute:'2-digit'});
+          return;
+        } catch(e) {}
+      }
+    }
+    generateBrief();
+  }
+}
+
+function updateHeaderDate() {
+  const now = new Date();
+  const opts = {weekday:'long', day:'numeric', month:'long', year:'numeric'};
+  document.getElementById('headerDate').textContent = now.toLocaleDateString('it-IT', opts);
+}
+
+function saveKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key.startsWith('sk-ant-')) {
+    alert('API key non valida. Deve iniziare con sk-ant-');
+    return;
+  }
+  localStorage.setItem(STORAGE_KEY, key);
+  showDashboard();
+  generateBrief();
+}
+
+function showDashboard() {
+  document.getElementById('setup').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+}
+
+function resetKey() {
+  if (confirm('Vuoi cambiare API key?')) {
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+}
+
+async function generateBrief() {
+  const key = localStorage.getItem(STORAGE_KEY);
+  if (!key) return;
+
+  const refreshBtn = document.getElementById('refreshBtn');
+  const refreshIcon = document.getElementById('refreshIcon');
+  refreshBtn.disabled = true;
+  refreshIcon.textContent = '…';
+
+  document.getElementById('content').innerHTML = '';
+  document.getElementById('loading').style.display = 'block';
+
+  // Animate steps
+  const steps = ['step1','step2','step3','step4'];
+  let stepIdx = 0;
+  const stepInterval = setInterval(() => {
+    if (stepIdx > 0) document.getElementById(steps[stepIdx-1]).className = 'loading-step done';
+    if (stepIdx < steps.length) {
+      document.getElementById(steps[stepIdx]).className = 'loading-step active';
+      stepIdx++;
+    }
+  }, 2500);
+
+  const today = new Date().toLocaleDateString('it-IT', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+
+  const prompt = `Sei il redattore capo di "Orsini Intelligence", una newsletter personale di intelligence quotidiana per un senior executive nel settore AI e fintech.
+
+Data di oggi: ${today}
+
+Cerca le notizie più importanti delle ULTIME 24 ORE nelle seguenti aree:
+1. AI e agenti (Claude Code, Anthropic, OpenAI, agenti dev, multi-agent, LLM)
+2. Tech e software (major releases, architetture, infrastrutture)
+3. Economia e mercati (macro, cripto, tassi, trend)
+4. Geopolitica e policy AI (regolamentazioni, geopolitica tech)
+5. Scienza e innovazione
+
+Genera un briefing completo in formato JSON con questa struttura ESATTA (solo JSON, nessun testo extra):
+
+{
+  "generated_at": "ora attuale HH:MM",
+  "executive_summary": "Paragrafo di 150-200 parole che sintetizza i 3-5 sviluppi più importanti della giornata con implicazioni per chi opera nel settore AI/tech. Tono executive, diretto, senza fronzoli.",
+  "signals": [
+    {
+      "type": "risk|alert|watch|opportunity",
+      "category": "AI|TECH|ECO|GEO|SCI",
+      "title": "Titolo segnale breve",
+      "tldr": "Una frase di 15-20 parole che cattura l'essenza"
+    }
+  ],
+  "markets": [
+    {"name": "BTC", "value": "valore stimato", "change": "+X.X%", "direction": "up|down"},
+    {"name": "S&P 500", "value": "valore", "change": "+X.X%", "direction": "up|down"},
+    {"name": "EUR/USD", "value": "valore", "change": "+X.X%", "direction": "up|down"},
+    {"name": "Gold", "value": "valore", "change": "+X.X%", "direction": "up|down"},
+    {"name": "Brent", "value": "valore", "change": "+X.X%", "direction": "up|down"}
+  ],
+  "categories": [
+    {
+      "id": "ai",
+      "name": "AI & Agenti",
+      "color": "dot-ai",
+      "articles": [
+        {
+          "title": "Titolo articolo",
+          "source": "Nome fonte",
+          "time": "X ore fa",
+          "tldr": "Frase di sintesi 15-20 parole",
+          "detail": "Paragrafo di 60-80 parole con contesto completo",
+          "sowhat": "Implicazione pratica per un engineering leader/CTO: cosa cambia, cosa fare",
+          "url": "URL reale se disponibile, altrimenti null"
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "name": "Tech & Software",
+      "color": "dot-tech",
+      "articles": []
+    },
+    {
+      "id": "eco",
+      "name": "Economia & Mercati",
+      "color": "dot-eco",
+      "articles": []
+    },
+    {
+      "id": "geo",
+      "name": "Geopolitica & Policy",
+      "color": "dot-geo",
+      "articles": []
+    },
+    {
+      "id": "sci",
+      "name": "Scienza & Innovazione",
+      "color": "dot-sci",
+      "articles": []
+    }
+  ]
+}
+
+Regole:
+- Minimo 3 segnali (mix di tipi), massimo 5
+- Ogni categoria deve avere 2-4 articoli con notizie REALI di oggi cercate via web
+- I dati mercati devono essere i più recenti disponibili
+- Solo JSON valido, nessun markdown, nessun testo fuori dal JSON
+- Tutte le notizie devono essere verificate e recenti (ultime 24h)`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-beta': 'interleaved-thinking-2025-05-14'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 4000,
+        tools: [{
+          type: 'web_search_20250305',
+          name: 'web_search',
+          max_uses: 8
+        }],
+        messages: [{role: 'user', content: prompt}]
+      })
+    });
+
+    clearInterval(stepInterval);
+    steps.forEach(s => document.getElementById(s).className = 'loading-step done');
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.error?.message || 'Errore API');
+    }
+
+    const data = await response.json();
+
+    // Extract text from response (may include tool use blocks)
+    let text = '';
+    for (const block of data.content) {
+      if (block.type === 'text') text += block.text;
+    }
+
+    // Extract JSON
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('Formato risposta non valido');
+
+    const brief = JSON.parse(jsonMatch[0]);
+
+    // Cache
+    localStorage.setItem(BRIEF_CACHE_KEY, JSON.stringify(brief));
+    localStorage.setItem(BRIEF_DATE_KEY, new Date().toDateString());
+
+    document.getElementById('loading').style.display = 'none';
+    renderBrief(brief);
+
+    const now = new Date();
+    document.getElementById('lastUpdate').textContent = `Aggiornato oggi alle ${now.toLocaleTimeString('it-IT', {hour:'2-digit',minute:'2-digit'})}`;
+
+  } catch(e) {
+    clearInterval(stepInterval);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').innerHTML = `
+      <div class="error-card">
+        <div class="error-title">Errore generazione briefing</div>
+        <div class="error-text">${e.message}<br><br>Verifica che la API key sia valida e che tu abbia credito disponibile su console.anthropic.com</div>
+      </div>`;
+  }
+
+  refreshBtn.disabled = false;
+  refreshIcon.textContent = '⟳';
+}
+
+function renderBrief(brief) {
+  let html = '';
+
+  // MARKET STRIP
+  if (brief.markets && brief.markets.length) {
+    html += `<div class="section-label">Mercati</div>`;
+    html += `<div class="market-strip">`;
+    for (const m of brief.markets) {
+      const dir = m.direction === 'up' ? 'up' : 'down';
+      const arrow = dir === 'up' ? '▲' : '▼';
+      html += `
+        <div class="market-pill">
+          <div class="market-name">${esc(m.name)}</div>
+          <div class="market-val">${esc(m.value)}</div>
+          <div class="market-chg ${dir}">${arrow} ${esc(m.change)}</div>
+        </div>`;
+    }
+    html += `</div>`;
+  }
+
+  // EXECUTIVE SUMMARY
+  html += `<div class="section-label">Executive Summary</div>`;
+  html += `<div class="exec-card"><div class="exec-text"><p>${esc(brief.executive_summary)}</p></div></div>`;
+
+  // SIGNALS
+  if (brief.signals && brief.signals.length) {
+    html += `<div class="section-label">Segnali del Giorno</div>`;
+    html += `<div class="signals-grid">`;
+    for (const s of brief.signals) {
+      const type = s.type || 'watch';
+      html += `
+        <div class="signal-card ${type}">
+          <div class="signal-header">
+            <span class="signal-badge ${type}">${type.toUpperCase()}</span>
+            <span class="signal-cat">${esc(s.category)}</span>
+          </div>
+          <div class="signal-title">${esc(s.title)}</div>
+          <div class="signal-tldr">${esc(s.tldr)}</div>
+        </div>`;
+    }
+    html += `</div>`;
+  }
+
+  // CATEGORIES
+  if (brief.categories) {
+    for (const cat of brief.categories) {
+      if (!cat.articles || cat.articles.length === 0) continue;
+      html += `<div class="cat-section">`;
+      html += `<div class="cat-header">
+        <div class="cat-dot ${cat.color}"></div>
+        <div class="cat-name">${esc(cat.name)}</div>
+        <div class="cat-count">${cat.articles.length} articoli</div>
+      </div>`;
+      html += `<div class="news-list">`;
+      for (let i = 0; i < cat.articles.length; i++) {
+        const a = cat.articles[i];
+        const id = `art_${cat.id}_${i}`;
+        html += `
+          <div class="news-card" id="${id}" onclick="toggleArticle('${id}')">
+            <div class="news-meta">
+              <span class="news-source">${esc(a.source)}</span>
+              <span class="news-time">· ${esc(a.time)}</span>
+            </div>
+            <div class="news-title">${esc(a.title)}</div>
+            <div class="news-tldr">${esc(a.tldr)}</div>
+            <div class="news-detail">
+              <div class="news-detail-text">${esc(a.detail)}</div>
+              <div class="news-sowhat"><strong>→ So what?</strong>${esc(a.sowhat)}</div>
+              ${a.url ? `<a class="news-link" href="${a.url}" target="_blank" rel="noopener">Leggi l'articolo →</a>` : ''}
+            </div>
+          </div>`;
+      }
+      html += `</div></div>`;
+    }
+  }
+
+  document.getElementById('content').innerHTML = html;
+}
+
+function toggleArticle(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// Enter key on API input
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('apiKeyInput');
+  if (input) {
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') saveKey();
+    });
+  }
+  init();
+});
+</script>
 </body>
 </html>
