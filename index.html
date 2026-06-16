@@ -313,14 +313,17 @@ async function generateBrief() {
 
 Data di oggi: ${today}
 
-Cerca le notizie più importanti delle ULTIME 24 ORE nelle seguenti aree:
+Genera un briefing mattutino sulle aree più rilevanti:
 1. AI e agenti (Claude Code, Anthropic, OpenAI, agenti dev, multi-agent, LLM)
 2. Tech e software (major releases, architetture, infrastrutture)
-3. Economia e mercati (macro, cripto, tassi, trend)
+3. Economia e mercati (macro, cripto BTC, S&P 500, EUR/USD, Gold, Brent)
 4. Geopolitica e policy AI (regolamentazioni, geopolitica tech)
 5. Scienza e innovazione
 
-Genera un briefing completo in formato JSON con questa struttura ESATTA (solo JSON, nessun testo extra):
+Usa le tue conoscenze più aggiornate. Per i mercati fornisci stime ragionevoli basate sui trend recenti.
+Rispondi SOLO con JSON valido, zero testo fuori dal JSON, zero markdown.
+
+Struttura ESATTA:
 
 {
   "generated_at": "ora attuale HH:MM",
@@ -410,11 +413,6 @@ Regole:
         body: JSON.stringify({
           model: 'claude-sonnet-4-6',
           max_tokens: 4000,
-          tools: [{
-            type: 'web_search_20250305',
-            name: 'web_search',
-            max_uses: 4
-          }],
           messages: [{role: 'user', content: prompt}]
         })
       });
