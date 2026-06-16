@@ -399,6 +399,7 @@ Regole:
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 120000);
 
+    console.log('[OI] Avvio fetch API...');
     let response;
     try {
       response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -420,32 +421,43 @@ Regole:
       clearTimeout(timeout);
     }
 
+    console.log('[OI] Risposta ricevuta, status:', response.status);
     clearInterval(stepInterval);
     steps.forEach(s => document.getElementById(s).className = 'loading-step done');
 
     if (!response.ok) {
       let errMsg = `HTTP ${response.status}`;
       try { const err = await response.json(); errMsg = err.error?.message || errMsg; } catch(ex) {}
+      console.error('[OI] API error:', errMsg);
       throw new Error(errMsg);
     }
 
+    console.log('[OI] Parsing risposta...');
     const data = await response.json();
+    console.log('[OI] Content blocks:', data.content?.length, data.content?.map(b=>b.type));
 
-    // Extract text from response (may include tool_use blocks)
+    // Extract text from response
     let text = '';
     for (const block of data.content) {
       if (block.type === 'text') text += block.text;
     }
 
+    console.log('[OI] Testo estratto, lunghezza:', text.length);
     if (!text) throw new Error('Risposta vuota. Riprova tra qualche secondo.');
 
-    // Extract JSON — cerca il primo { ... } valido
+    // Extract JSON
     const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('Formato non valido. Riprova.');
+    if (!jsonMatch) {
+      console.error('[OI] JSON non trovato nel testo:', text.substring(0,200));
+      throw new Error('Formato non valido. Riprova.');
+    }
 
     let brief;
-    try { brief = JSON.parse(jsonMatch[0]); }
-    catch(ex) { throw new Error('Errore parsing JSON: ' + ex.message); }
+    try { brief = JSON.parse(jsonMatch[0]); console.log('[OI] JSON parsato OK'); }
+    catch(ex) { 
+      console.error('[OI] Parse error:', ex.message, jsonMatch[0].substring(0,200));
+      throw new Error('Errore parsing JSON: ' + ex.message); 
+    }
 
     // Cache
     localStorage.setItem(BRIEF_CACHE_KEY, JSON.stringify(brief));
