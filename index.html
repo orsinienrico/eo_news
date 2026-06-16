@@ -205,7 +205,7 @@ function render(b) {
         var a = c.articles[j];
         var id = 'n' + i + '_' + j;
         h += '<div class="nc" id="' + id + '" onclick="tog(\'' + id + '\')">';
-        h += '<div class="nm"><span>' + x(a.source) + '</span><span>· ' + x(a.time) + '</span></div>';
+        var dateStr = a.date || a.time || ""; h += '<div class="nm"><span>' + x(a.source) + '</span><span>· ' + x(dateStr) + '</span></div>';
         h += '<div class="nt">' + x(a.title) + '</div>';
         h += '<div class="ntl">' + x(a.tldr) + '</div>';
         h += '<div class="nd"><div class="nb">' + x(a.detail) + '</div><div class="nw"><strong>So what?</strong>' + x(a.sowhat) + '</div>';
@@ -237,13 +237,45 @@ function generate() {
 
   var today = new Date().toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 
-  var lines = [
-    'Sei il redattore di Orsini Intelligence. Data: ' + today + '.',
-    'Genera un briefing JSON. REGOLE: solo JSON valido, niente testo fuori dal JSON, solo caratteri ASCII, stringhe max 100 caratteri.',
-    'Struttura richiesta (compila con contenuti reali in italiano, brevi):',
-    '{"executive_summary":"sommario 80 parole","signals":[{"type":"watch","category":"AI","title":"titolo","tldr":"frase"},{"type":"opportunity","category":"TECH","title":"titolo","tldr":"frase"},{"type":"alert","category":"ECO","title":"titolo","tldr":"frase"}],"markets":[{"name":"BTC","value":"valore","change":"+X%","direction":"up"},{"name":"S&P500","value":"valore","change":"+X%","direction":"up"},{"name":"EUR/USD","value":"valore","change":"+X%","direction":"down"},{"name":"Gold","value":"valore","change":"+X%","direction":"up"},{"name":"Brent","value":"valore","change":"-X%","direction":"down"}],"categories":[{"id":"ai","name":"AI & Agenti","color":"da","articles":[{"title":"titolo","source":"fonte","time":"oggi","tldr":"sintesi","detail":"dettaglio 50 parole","sowhat":"implicazione CTO","url":null},{"title":"titolo2","source":"fonte2","time":"oggi","tldr":"sintesi2","detail":"dettaglio2","sowhat":"implicazione2","url":null}]},{"id":"tech","name":"Tech","color":"dt","articles":[{"title":"t","source":"s","time":"oggi","tldr":"t","detail":"d","sowhat":"s","url":null}]},{"id":"eco","name":"Economia","color":"de","articles":[{"title":"t","source":"s","time":"oggi","tldr":"t","detail":"d","sowhat":"s","url":null}]},{"id":"geo","name":"Geopolitica","color":"dg","articles":[{"title":"t","source":"s","time":"oggi","tldr":"t","detail":"d","sowhat":"s","url":null}]}]}'
-  ];
-  var prompt = lines.join('\n');
+  var dd = new Date().toLocaleDateString('it-IT');
+  var prompt = 'Sei il redattore di Orsini Intelligence. Data: ' + today + '.'
+    + ' Genera un briefing JSON. REGOLE: solo JSON valido, niente testo fuori dal JSON, solo ASCII, stringhe max 120 caratteri.'
+    + ' Ogni categoria deve avere esattamente 5 articoli con campi: title, source, date (formato DD/MM/YYYY), tldr, detail (60 parole), sowhat (implicazione CTO), url (URL reale o null).'
+    + ' Struttura JSON completa da compilare con contenuti reali pertinenti a oggi:'
+    + ' {"executive_summary":"sommario 100 parole",'
+    + '"signals":[{"type":"watch","category":"AI","title":"t","tldr":"f"},{"type":"opportunity","category":"TECH","title":"t","tldr":"f"},{"type":"alert","category":"ECO","title":"t","tldr":"f"},{"type":"risk","category":"GEO","title":"t","tldr":"f"}],'
+    + '"markets":[{"name":"BTC","value":"v","change":"+X%","direction":"up"},{"name":"S&P500","value":"v","change":"+X%","direction":"up"},{"name":"EUR/USD","value":"v","change":"+X%","direction":"down"},{"name":"Gold","value":"v","change":"+X%","direction":"up"},{"name":"Brent","value":"v","change":"-X%","direction":"down"}],'
+    + '"categories":['
+    + '{"id":"ai","name":"AI & Agenti","color":"da","articles":['
+    + '{"title":"t1","source":"s1","date":"' + dd + '","tldr":"tldr1","detail":"detail1","sowhat":"sw1","url":"https://example.com"},'
+    + '{"title":"t2","source":"s2","date":"' + dd + '","tldr":"tldr2","detail":"detail2","sowhat":"sw2","url":null},'
+    + '{"title":"t3","source":"s3","date":"' + dd + '","tldr":"tldr3","detail":"detail3","sowhat":"sw3","url":null},'
+    + '{"title":"t4","source":"s4","date":"' + dd + '","tldr":"tldr4","detail":"detail4","sowhat":"sw4","url":null},'
+    + '{"title":"t5","source":"s5","date":"' + dd + '","tldr":"tldr5","detail":"detail5","sowhat":"sw5","url":null}'
+    + ']},'
+    + '{"id":"tech","name":"Tech & Dev","color":"dt","articles":['
+    + '{"title":"t1","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t2","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t3","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t4","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t5","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null}'
+    + ']},'
+    + '{"id":"eco","name":"Economia","color":"de","articles":['
+    + '{"title":"t1","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t2","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t3","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t4","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t5","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null}'
+    + ']},'
+    + '{"id":"geo","name":"Geopolitica","color":"dg","articles":['
+    + '{"title":"t1","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t2","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t3","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t4","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null},'
+    + '{"title":"t5","source":"s","date":"' + dd + '","tldr":"t","detail":"d","sowhat":"s","url":null}'
+    + ']}]}'
+    + ' Sostituisci tutti i placeholder con contenuti reali. Solo JSON puro.';
+
 
   var ctrl = new AbortController();
   var tout = setTimeout(function(){ ctrl.abort(); }, 90000);
