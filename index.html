@@ -240,7 +240,7 @@ function generate() {
   var dd = new Date().toLocaleDateString('it-IT');
   var prompt = 'Sei il redattore di Orsini Intelligence. Data: ' + today + '.'
     + ' Genera un briefing JSON. REGOLE: solo JSON valido, niente testo fuori dal JSON, solo ASCII, stringhe max 120 caratteri.'
-    + ' Ogni categoria deve avere esattamente 5 articoli con campi: title, source, date (formato DD/MM/YYYY), tldr, detail (60 parole), sowhat (implicazione CTO), url (URL reale o null).'
+    + ' Ogni categoria deve avere esattamente 5 articoli con campi: title, source, date (DD/MM/YYYY), tldr (max 15 parole), detail (max 20 parole), sowhat (max 15 parole), url (URL reale o null).'
     + ' Struttura JSON completa da compilare con contenuti reali pertinenti a oggi:'
     + ' {"executive_summary":"sommario 100 parole",'
     + '"signals":[{"type":"watch","category":"AI","title":"t","tldr":"f"},{"type":"opportunity","category":"TECH","title":"t","tldr":"f"},{"type":"alert","category":"ECO","title":"t","tldr":"f"},{"type":"risk","category":"GEO","title":"t","tldr":"f"}],'
@@ -290,8 +290,8 @@ function generate() {
       'anthropic-dangerous-direct-browser-access': 'true'
     },
     body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 4000,
+      model: 'claude-sonnet-4-6',
+      max_tokens: 8000,
       stream: false,
       messages: [{role: 'user', content: prompt}]
     })
